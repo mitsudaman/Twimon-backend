@@ -402,3 +402,8 @@ $ composer require mll-lab/laravel-graphql-playground
 
 # cors
 https://github.com/barryvdh/laravel-cors
+
+#seeds 
+php artisan make:seeder UsersTableSeeder
+php artisan db:seed --class=UsersTableSeeder
+php artisan db:seed --class=CommentsTableSeeder
