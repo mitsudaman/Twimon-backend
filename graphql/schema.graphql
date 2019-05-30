@@ -13,6 +13,7 @@ type User {
     id: ID!
     name: String!
     email: String!
+    password: String!
     created_at: DateTime!
     updated_at: DateTime!
     comments: [Comment!]! @hasMany
@@ -22,3 +23,9 @@ type Comment{
     id: ID!
     content: String!
 }
+
+type Mutation {
+  createUser(name: String!,email: String!,password:String!): User! @create
+  updateUser(id: ID!, name: String): User @update
+}
+
