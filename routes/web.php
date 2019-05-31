@@ -11,6 +11,4 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/og/{id}', 'OGPController@index')->name('ogp.index');
