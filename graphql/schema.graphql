@@ -12,6 +12,12 @@ type Query {
 type User {
     id: ID!
     name: String!
+    title: String
+    feature1: String
+    feature1_content: String
+    feature2: String
+    feature2_content: String
+    description: String
     email: String!
     password: String!
     created_at: DateTime!
@@ -25,7 +31,7 @@ type Comment{
 }
 
 type Mutation {
-  createUser(name: String!,email: String!,password:String!): User! @create
-  updateUser(id: ID!, name: String): User @update
+  createUser(name: String!, title: String, feature1: String, feature1_content: String, feature2: String, feature2_content: String,description:String,email: String!,password:String!): User! @create
+  updateUser(id: ID!, name: String, feature1: String): User @update
 }
 

@@ -1,4 +1,7 @@
 #
+##コマンド
+docker-compose up -d nginx postgres nuxt
+
 ## \<laravel>
 
 
@@ -404,6 +407,13 @@ $ composer require mll-lab/laravel-graphql-playground
 https://github.com/barryvdh/laravel-cors
 
 #seeds 
+・DB初期化
+php artisan migrate:reset
+・DB作成
+php artisan migrate
+
+php artisan migrate:refresh --seed
+
 php artisan make:seeder UsersTableSeeder
 php artisan db:seed --class=UsersTableSeeder
 php artisan db:seed --class=CommentsTableSeeder
