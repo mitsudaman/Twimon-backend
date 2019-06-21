@@ -22,8 +22,6 @@ class UsersTableSeeder extends Seeder
             'feature1_content' => 'はがね',
             'feature2' => 'レベル',
             'feature2_content' => '99',
-            'email' => 'test1@test.com',
-            'password' => Hash::make('testtest')
         ]);
     }
 }
