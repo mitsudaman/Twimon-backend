@@ -417,3 +417,56 @@ php artisan migrate:refresh --seed
 php artisan make:seeder UsersTableSeeder
 php artisan db:seed --class=UsersTableSeeder
 php artisan db:seed --class=CommentsTableSeeder
+
+
+
+#twitter login
+▼ Nuxt.jsとLaravelを使ってTwitterログイン機能を実装する
+https://qiita.com/hareku/items/ea09602bf40bf0a42040
+
+▼Laravel 5.5 Laravel Socialite
+https://readouble.com/laravel/5.5/ja/socialite.html
+
+
+
+
+## socialite
+(1) composer require laravel/socialite
+
+(2) .env
+
+(3) services.php
+
+'twitter' => [
+    'client_id' => env('TWITTER_CLIENT_ID'),
+    'client_secret' => env('TWITTER_CLIENT_SECRET'),
+    'redirect' => env('TWITTER_URL'),
+],
+
+(4)config/cors.php
+
+
+    'supportsCredentials' => true,
+    'allowedOrigins' => ['*'],
+    'allowedOriginsPatterns' => [],
+    'allowedHeaders' => ['*'],
+    'allowedMethods' => ['*'],
+    'exposedHeaders' => [],
+    'maxAge' => 0,
+
+
+
+
+(5)config/lighthouse.php つくってなかったので足す
+php artisan vendor:publish --provider="Nuwave\Lighthouse\LighthouseServiceProvider" --tag=config
+
+(6)これ足す
+ 'route' => [
+        'prefix' => '',
+        'middleware' => [
+            \App\Http\Middleware\EncryptCookies::class,
+            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+            \Illuminate\Session\Middleware\StartSession::class,
+            \Nuwave\Lighthouse\Support\Http\Middleware\AcceptJson::class,
+        ],
+    ],
