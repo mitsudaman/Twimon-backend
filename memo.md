@@ -470,3 +470,19 @@ php artisan vendor:publish --provider="Nuwave\Lighthouse\LighthouseServiceProvid
             \Nuwave\Lighthouse\Support\Http\Middleware\AcceptJson::class,
         ],
     ],
+
+
+
+# Laravelで画像編集
+▼完全網羅！Intervention Image（PHP）で画像を編集する全実例
+ https://blog.capilano-fw.com/?p=1574
+
+ (1)Intervention Imageをインストールする
+    composer require intervention/image
+
+ (2)storage配下に必要なファイルを用意する
+ storage/app/fonts/◯◯◯.ttf
+ storage/app/images/◯◯◯.png
+ 
+ ▼Laravel5.6 + Intervention Image でサーバサイドで画像加工を行う
+ https://qiita.com/Yuuki_Takahasi/items/3ecd6a4d9768b4efb826
