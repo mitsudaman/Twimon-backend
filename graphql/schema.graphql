@@ -5,9 +5,10 @@ scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date
 scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 
 type Query {
-    login: String! 
+    getRedirectUrl: String! 
     users: [User!]! @paginate
     user(id: ID @eq,name: String @eq): User @find(model: "App\\User")
+    handleTwitterCallback: String!
 }
 
 type User {

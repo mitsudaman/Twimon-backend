@@ -6,7 +6,7 @@ use GraphQL\Type\Definition\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use Laravel\Socialite\Facades\Socialite;
 
-class Login
+class HandleTwitterCallback
 {
     /**
      * Return a value for the field.
@@ -17,14 +17,10 @@ class Login
      * @param  \GraphQL\Type\Definition\ResolveInfo  $resolveInfo Information about the query itself, such as the execution state, the field name, path to the field from the root, and more.
      * @return mixed
      */
-    // public function resolve($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
-    // {
-    //     // TODO implement the resolver
-    // }
-    public static function resolve(): string
+    public function resolve($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
-        // SocialiteからリダイレクトURLを取得
-        $test = Socialite::driver('twitter')->redirect()->getTargetUrl();
-        return $test;
+        // TODO implement the resolver
+        $user = Socialite::driver('twitter')->userFromTokenAndSecret(env('TWITTER_ACCESS_TOKEN'), env('TWITTER_ACCESS_TOKEN_SECRET'));
+        return $user->id;
     }
 }

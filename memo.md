@@ -420,14 +420,12 @@ php artisan db:seed --class=CommentsTableSeeder
 
 
 
-#twitter login
+# twitter login
 ▼ Nuxt.jsとLaravelを使ってTwitterログイン機能を実装する
 https://qiita.com/hareku/items/ea09602bf40bf0a42040
 
 ▼Laravel 5.5 Laravel Socialite
 https://readouble.com/laravel/5.5/ja/socialite.html
-
-
 
 
 ## socialite
@@ -470,6 +468,36 @@ php artisan vendor:publish --provider="Nuwave\Lighthouse\LighthouseServiceProvid
             \Nuwave\Lighthouse\Support\Http\Middleware\AcceptJson::class,
         ],
     ],
+
+
+## コールバック
+
+▼Laravel + Socialite + Vue(Nuxt)でtwitter認証をしようとするとsession周りで躓きます。
+https://teratail.com/questions/124977
+
+
+$user = Socialite::driver('twitter')->userFromTokenAndSecret(env('TWITTER_ACCESS_TOKEN'), env('TWITTER_ACCESS_TOKEN_SECRET'));
+
+
+
+コールバックURL例
+https://choicemaker-e052f.firebaseapp.com/__/auth/handler?oauth_token=iavRawAAAAAA9tkiAAABa4w_oks&oauth_verifier=RTNuPHYvGB3jsySLmN53vfUXVNUB48Ow
+
+
+▼旧CallbackURL
+https://choicemaker-e052f.firebaseapp.com/__/auth/handler
+
+http://localhost:8001/og/1
+http://localhost:8001/og/twitter/callback
+
+
+
+
+## 
+
+
+
+
 
 
 

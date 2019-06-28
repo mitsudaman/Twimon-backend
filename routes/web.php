@@ -12,3 +12,6 @@
 */
 
 Route::get('/og/{id}', 'OGPController@index')->name('ogp.index');
+Route::get('login/twitter', 'Auth\LoginController@redirectToProvider');
+Route::get('og/twitter/callback', 'OGPController@handleProviderCallback');
+
