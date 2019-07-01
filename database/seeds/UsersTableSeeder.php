@@ -13,16 +13,89 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory('App\User', 10)->create();
-        //特定のデータを追加
+
         User::create([
-            'name' => 'ツイモン',
+            'name' => 'がっちょ',
             'title' => 'ツイットモンスター',
             'feature1' => 'タイプ',
-            'feature1_content' => 'はがね',
+            'feature1_content' => 'じめん',
             'feature2' => 'レベル',
             'feature2_content' => '99',
+            'img_src' => 'gattyo.jpg'
         ]);
+        User::create([
+            'name' => 'masahikoっちょ',
+            'title' => 'ツイットモンスター',
+            'feature1' => 'タイプ',
+            'feature1_content' => '無',
+            'feature2' => 'レベル',
+            'feature2_content' => '99',
+            'img_src' => 'masahikottyo.jpg'
+        ]);
+        User::create([
+            'name' => '枝っちょ',
+            'title' => 'ツイットモンスター',
+            'feature1' => 'タイプ',
+            'feature1_content' => 'ノーマル',
+            'feature2' => 'レベル',
+            'feature2_content' => '99',
+            'img_src' => 'edamamettyo.jpg'
+        ]);
+        User::create([
+            'name' => 'むっちょ',
+            'title' => 'ツイットモンスター',
+            'feature1' => 'タイプ',
+            'feature1_content' => '草',
+            'feature2' => 'レベル',
+            'feature2_content' => '99',
+            'img_src' => 'mutottyo.png'
+        ]);
+        User::create([
+            'name' => 'おさむっちょ',
+            'title' => 'ツイットモンスター',
+            'feature1' => 'タイプ',
+            'feature1_content' => 'きんにく',
+            'feature2' => 'レベル',
+            'feature2_content' => '99',
+            'img_src' => 'osamuttyo.jpg'
+        ]);
+        User::create([
+            'name' => 'やめたっちょ',
+            'title' => 'ツイットモンスター',
+            'feature1' => 'タイプ',
+            'feature1_content' => 'めがね',
+            'feature2' => 'レベル',
+            'feature2_content' => '99',
+            'img_src' => 'yametattyo.jpg'
+        ]);
+        User::create([
+            'name' => 'じどはんっちょ',
+            'title' => 'ツイットモンスター',
+            'feature1' => 'タイプ',
+            'feature1_content' => 'きかい',
+            'feature2' => 'レベル',
+            'feature2_content' => '99',
+            'img_src' => 'jidohanttyo.jpg'
+        ]);
+        User::create([
+            'name' => 'ミツダマっちょ',
+            'title' => 'ツイットモンスター',
+            'feature1' => 'タイプ',
+            'feature1_content' => 'みず',
+            'feature2' => 'レベル',
+            'feature2_content' => '99',
+            'img_src' => 'mitsudamattyo.jpg'
+        ]);
+        // factory('App\User', 10)->create();
+        // //特定のデータを追加
+        // User::create([
+        //     'name' => 'ツイモン',
+        //     'title' => 'ツイットモンスター',
+        //     'feature1' => 'タイプ',
+        //     'feature1_content' => 'はがね',
+        //     'feature2' => 'レベル',
+        //     'feature2_content' => '99',
+        // ]);
     }
 }
 
