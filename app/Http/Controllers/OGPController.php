@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
+use App\User;
 
 class OGPController extends Controller
 {
@@ -20,9 +21,19 @@ class OGPController extends Controller
      */
     public function handleProviderCallback()
     {
-        $user = Socialite::driver('twitter')->userFromTokenAndSecret(env('TWITTER_ACCESS_TOKEN'), env('TWITTER_ACCESS_TOKEN_SECRET'));
+        $twitterUser = Socialite::driver('twitter')->userFromTokenAndSecret(env('TWITTER_ACCESS_TOKEN'), env('TWITTER_ACCESS_TOKEN_SECRET'));
+        print_r($twitterUser->getId());
+
+
+        $user = User::firstOrCreate([
+            // 'provider'   => 'twitter',
+            'account_id' => $twitterUser->getId(),
+            'name' => $twitterUser->getName(),
+        ]);
+
+
         return [
-            'user'         => $user,
+            'user'         => $twitterUser,
         ];
     }
 }
