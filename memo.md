@@ -1,6 +1,7 @@
 #
 ##コマンド
 docker-compose up -d nginx postgres nuxt
+docker-compose up nginx postgres
 
 ## \<laravel>
 
