@@ -13,8 +13,10 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-
+        $price = DB::table('users')->max('serial_number');;
+        $price ++;
         User::create([
+            'serial_number' => DB::table('users')->max('serial_number')+1,
             'account_id' => '000001',
             'name' => 'がっちょ',
             'title' => 'ツイットモンスター',
@@ -25,6 +27,7 @@ class UsersTableSeeder extends Seeder
             'img_src' => 'gattyo.jpg'
         ]);
         User::create([
+            'serial_number' => DB::table('users')->max('serial_number')+1,
             'account_id' => '000002',
             'name' => 'masahikoっちょ',
             'title' => 'ツイットモンスター',
@@ -35,6 +38,7 @@ class UsersTableSeeder extends Seeder
             'img_src' => 'masahikottyo.jpg'
         ]);
         User::create([
+            'serial_number' => DB::table('users')->max('serial_number')+1,
             'account_id' => '000003',
             'name' => '枝っちょ',
             'title' => 'ツイットモンスター',
@@ -45,6 +49,7 @@ class UsersTableSeeder extends Seeder
             'img_src' => 'edamamettyo.jpg'
         ]);
         User::create([
+            'serial_number' => DB::table('users')->max('serial_number')+1,
             'account_id' => '000004',
             'name' => 'むっちょ',
             'title' => 'ツイットモンスター',
@@ -55,6 +60,7 @@ class UsersTableSeeder extends Seeder
             'img_src' => 'mutottyo.png'
         ]);
         User::create([
+            'serial_number' => DB::table('users')->max('serial_number')+1,
             'account_id' => '000005',
             'name' => 'おさむっちょ',
             'title' => 'ツイットモンスター',
@@ -65,6 +71,7 @@ class UsersTableSeeder extends Seeder
             'img_src' => 'osamuttyo.jpg'
         ]);
         User::create([
+            'serial_number' => DB::table('users')->max('serial_number')+1,
             'account_id' => '000006',
             'name' => 'やめたっちょ',
             'title' => 'ツイットモンスター',
@@ -75,6 +82,7 @@ class UsersTableSeeder extends Seeder
             'img_src' => 'yametattyo.jpg'
         ]);
         User::create([
+            'serial_number' => DB::table('users')->max('serial_number')+1,
             'account_id' => '000007',
             'name' => 'じどはんっちょ',
             'title' => 'ツイットモンスター',
@@ -85,6 +93,7 @@ class UsersTableSeeder extends Seeder
             'img_src' => 'jidohanttyo.jpg'
         ]);
         User::create([
+            'serial_number' => DB::table('users')->max('serial_number')+1,
             'account_id' => '000008',
             'name' => 'ミツダマっちょ',
             'title' => 'ツイットモンスター',

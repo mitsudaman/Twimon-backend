@@ -13,6 +13,7 @@ type Query {
 
 type User {
     id: ID!
+    serial_number: Int!
     name: String!
     title: String
     feature1: String

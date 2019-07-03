@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 use App\User;
+use DB;
 
 class OGPController extends Controller
 {
@@ -26,11 +27,10 @@ class OGPController extends Controller
 
 
         $user = User::firstOrCreate([
-            // 'provider'   => 'twitter',
+            'serial_number' => DB::table('users')->max('serial_number')+1,
             'account_id' => $twitterUser->getId(),
             'name' => $twitterUser->getName(),
         ]);
-
 
         return [
             'user'         => $twitterUser,
