@@ -23,13 +23,15 @@ class OGPController extends Controller
     public function handleProviderCallback()
     {
         $twitterUser = Socialite::driver('twitter')->userFromTokenAndSecret(env('TWITTER_ACCESS_TOKEN'), env('TWITTER_ACCESS_TOKEN_SECRET'));
-        print_r($twitterUser->getId());
+        print_r($twitterUser->getAvatar());
 
 
         $user = User::firstOrCreate([
-            'serial_number' => DB::table('users')->max('serial_number')+1,
             'account_id' => $twitterUser->getId(),
+        ],[
+            'serial_number' => DB::table('users')->max('serial_number')+1,
             'name' => $twitterUser->getName(),
+            'img_src' => $twitterUser->getAvatar(),
         ]);
 
         return [

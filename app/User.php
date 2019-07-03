@@ -30,6 +30,7 @@ class User extends Authenticatable
         'feature1_content',
         'feature2',
         'feature2_content',
+        'img_src',
     ];
 
     /**

@@ -17,7 +17,9 @@ use Faker\Generator as Faker;
 */
 
 $factory->define(User::class, function (Faker $faker) {
+    static $number = 9;
     return [
+        'serial_number' => $number++,
         'account_id' => $faker->word,
         'name' => $faker->name,
         'title' => $faker->sentence(2),

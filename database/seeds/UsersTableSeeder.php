@@ -13,8 +13,6 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $price = DB::table('users')->max('serial_number');;
-        $price ++;
         User::create([
             'serial_number' => DB::table('users')->max('serial_number')+1,
             'account_id' => '000001',
@@ -103,7 +101,7 @@ class UsersTableSeeder extends Seeder
             'feature2_content' => '99',
             'img_src' => 'mitsudamattyo.jpg'
         ]);
-        factory('App\User', 50)->create();
+        // factory('App\User', 50)->create();
         // //特定のデータを追加
         // User::create([
         //     'name' => 'ツイモン',
