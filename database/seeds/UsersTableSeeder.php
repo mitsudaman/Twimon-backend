@@ -103,7 +103,7 @@ class UsersTableSeeder extends Seeder
             'feature2_content' => '99',
             'img_src' => 'mitsudamattyo.jpg'
         ]);
-        // factory('App\User', 10)->create();
+        factory('App\User', 50)->create();
         // //特定のデータを追加
         // User::create([
         //     'name' => 'ツイモン',
@@ -115,14 +115,3 @@ class UsersTableSeeder extends Seeder
         // ]);
     }
 }
-
-// 'name' => $faker->name,
-// 'feature1' => $faker->word,
-// 'feature1_content' => $faker->sentence(3),
-// 'feature2' => $faker->word,
-// 'feature2_content' => $faker->sentence(3),
-// 'description' => $faker->text,
-// 'email' => $faker->unique()->safeEmail,
-// 'email_verified_at' => now(),
-// 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-// 'remember_token' => Str::random(10),
