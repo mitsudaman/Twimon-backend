@@ -528,6 +528,8 @@ https://laravel.com/docs/5.8/passport#creating-a-personal-access-client
 ▼Laravel Passportの使い方まとめ
 https://qiita.com/zaburo/items/65de44194a2e67b59061
 
+▼GraphQL Auth with Passport and Lighthouse PHP
+https://ditecnologia.com/2019/06/24/graphql-auth-with-passport-and-lighthouse-php/
 
 composer require laravel/passport
 php artisan passport:install

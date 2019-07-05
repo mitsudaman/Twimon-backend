@@ -6,15 +6,9 @@ scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 
 type Query {
     getRedirectUrl: String!
-    getSocialAuthedUser: AuthedUser
     users: [User!]! @paginate
     user(id: ID @eq,name: String @eq): User @find(model: "App\\User")
     me: User @middleware(checks: ["auth:api"]) @auth
-}
-
-type AuthedUser {
-    user: User
-    access_token: String
 }
 
 type User {
@@ -38,9 +32,14 @@ type Comment{
     content: String!
 }
 
+type AuthedUser {
+    access_token: String
+}
+
 type Mutation {
   createUser(name: String!, title: String, feature1: String, feature1_content: String, feature2: String, feature2_content: String,description:String,email: String!,password:String!): User! @create
   updateUsera(id: ID!, name: String, feature1: String): User @update
   updateUser(id: ID!, name: String, feature1: String, description: String): User
+  authenticateUserGql: AuthedUser
 }
 

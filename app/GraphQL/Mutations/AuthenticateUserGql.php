@@ -1,6 +1,6 @@
 <?php
 
-namespace App\GraphQL\Queries;
+namespace App\GraphQL\Mutations;
 
 use GraphQL\Type\Definition\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
@@ -8,7 +8,7 @@ use Laravel\Socialite\Facades\Socialite;
 use App\User;
 use DB;
 
-class GetSocialAuthedUser
+class AuthenticateUserGql
 {
     /**
      * Return a value for the field.
@@ -32,7 +32,6 @@ class GetSocialAuthedUser
         ]);
 
         return [
-            'user' => $user,
             'access_token' => $user->createToken('twimonToken')->accessToken
         ];
     }
