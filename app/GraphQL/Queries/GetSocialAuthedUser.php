@@ -5,8 +5,10 @@ namespace App\GraphQL\Queries;
 use GraphQL\Type\Definition\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use Laravel\Socialite\Facades\Socialite;
+use App\User;
+use DB;
 
-class HandleTwitterCallback
+class GetSocialAuthedUser
 {
     /**
      * Return a value for the field.
@@ -19,8 +21,19 @@ class HandleTwitterCallback
      */
     public function resolve($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
-        // TODO implement the resolver
-        $user = Socialite::driver('twitter')->userFromTokenAndSecret(env('TWITTER_ACCESS_TOKEN'), env('TWITTER_ACCESS_TOKEN_SECRET'));
-        return $user->id;
+        $twitterUser = Socialite::driver('twitter')->userFromTokenAndSecret(env('TWITTER_ACCESS_TOKEN'), env('TWITTER_ACCESS_TOKEN_SECRET'));
+
+        $user = User::firstOrCreate([
+            'account_id' => $twitterUser->getId(),
+        ],[
+            'serial_number' => DB::table('users')->max('serial_number')+1,
+            'name' => $twitterUser->getName(),
+            'img_src' => $twitterUser->getAvatar(),
+        ]);
+
+        return [
+            'user' => $user,
+            'access_token' => $user->createToken('twimonToken')->accessToken
+        ];
     }
 }

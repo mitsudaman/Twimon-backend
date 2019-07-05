@@ -12,6 +12,7 @@ class OGPController extends Controller
     public function index($id = "")
     {
         // return Socialite::driver('twitter')->redirect();
+        // return Socialite::driver('twitter')->redirect()->getTargetUrl();
         return view('ogp/index', ['id' => $id]);
     }
 
@@ -23,7 +24,7 @@ class OGPController extends Controller
     public function handleProviderCallback()
     {
         $twitterUser = Socialite::driver('twitter')->userFromTokenAndSecret(env('TWITTER_ACCESS_TOKEN'), env('TWITTER_ACCESS_TOKEN_SECRET'));
-        print_r($twitterUser->getAvatar());
+        // print_r($twitterUser->getAvatar());
 
 
         $user = User::firstOrCreate([
@@ -36,6 +37,7 @@ class OGPController extends Controller
 
         return [
             'user'         => $twitterUser,
+            'access_token' => $user->createToken('twimonToken')->accessToken,
         ];
     }
 }

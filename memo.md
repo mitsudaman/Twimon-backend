@@ -515,3 +515,25 @@ http://localhost:8001/og/twitter/callback
  
  ▼Laravel5.6 + Intervention Image でサーバサイドで画像加工を行う
  https://qiita.com/Yuuki_Takahasi/items/3ecd6a4d9768b4efb826
+
+
+
+ # Passport
+▼Laravel 5.6 API認証(Passport)
+https://readouble.com/laravel/5.6/ja/passport.html
+
+▼Laravel Passport
+https://laravel.com/docs/5.8/passport#creating-a-personal-access-client
+
+▼Laravel Passportの使い方まとめ
+https://qiita.com/zaburo/items/65de44194a2e67b59061
+
+
+composer require laravel/passport
+php artisan passport:install
+php artisan migrate
+ php artisan passport:client --personal
+
+ 
+
+ curl -H 'Accept: application/json' -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjdjMTQyMGU0ZTNhYjJmYmY4ZDFkZTVlNTBiNDFiMThiZTMwODBjZjdmNTJhYmRiZWNlOTQ4NmIxNTk1OWI5YzE2OTBkNWEzNWQzZDNiMWYzIn0.eyJhdWQiOiIxIiwianRpIjoiN2MxNDIwZTRlM2FiMmZiZjhkMWRlNWU1MGI0MWIxOGJlMzA4MGNmN2Y1MmFiZGJlY2U5NDg2YjE1OTU5YjljMTY5MGQ1YTM1ZDNkM2IxZjMiLCJpYXQiOjE1NjIzMDE3NjAsIm5iZiI6MTU2MjMwMTc2MCwiZXhwIjoxNTkzOTI0MTYwLCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.vP9wYfADeTuoVAkVS8wtWougIBNL0Rk2x6yo1j9xqQ_-AvfxEEuww2tvPsZgDblGrddv51jcN98LR954akkukyWv2wcSCE2JAlOZQL7Z4kYFPuGVQ7kupPaugOxMk_NsYd_BaoRoi4B8f80jZM9B4d_JnRnL9oIyZcsIG793aOsRnuEA_aNpnuoPDyYA48MVNvnT16LGMrPQi5aV3yAddWKD-kFBeuJ24ByjoMIErRSFYPKXnTjwA-mbs0LIRBwzlfdWtr5roPyDARAXzUtfO3NzeDCG5uMO-xmgw5UL_ohL0rVeAfuPjwZZljNPZsLjwdmc0YTBB82v-fmybQKxBDtIhiz8JGLGrWtWhlS_bCh8hij0296zjMWA4yW-tz6gynu64xF_7khG4w4I1ZsQFgssoLPU-Rg2x943Aknub5NmKWoPaUjN6zcxVle1nNquqloiZ7XZh878da2xqbRTRfqxhTAOMFQHyoOMPIidFUihhNZxNC9lV5anHrjg7gHXRm7ESxzj2qHCJX9csnm1DntnZE72musAG0Tlfg4ylpyc33060RbJI8L_Aps_dOlSi2KTfKIwavutLoOoTJmRJDibzeX22Hs7HIQySnJdumWq7KtI_i0NSWHk0fo2ZiGInvuba83uDV049f3lSwV6CZz2v5vefLUCoMqQsBPDy0U' http://localhost:8001/api/user
