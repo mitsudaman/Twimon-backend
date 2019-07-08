@@ -39,7 +39,7 @@ type AuthedUser {
 type Mutation {
   createUser(name: String!, title: String, feature1: String, feature1_content: String, feature2: String, feature2_content: String,description:String,email: String!,password:String!): User! @create
   updateUsera(id: ID!, name: String, feature1: String): User @update
-  updateUser(id: ID!, name: String, feature1: String, description: String): User
+  updateUser(name: String, feature1: String, description: String): User @middleware(checks: ["auth:api"])
   authenticateUserGql: AuthedUser
 }
 

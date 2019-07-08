@@ -539,3 +539,9 @@ php artisan migrate
  
 
  curl -H 'Accept: application/json' -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjdjMTQyMGU0ZTNhYjJmYmY4ZDFkZTVlNTBiNDFiMThiZTMwODBjZjdmNTJhYmRiZWNlOTQ4NmIxNTk1OWI5YzE2OTBkNWEzNWQzZDNiMWYzIn0.eyJhdWQiOiIxIiwianRpIjoiN2MxNDIwZTRlM2FiMmZiZjhkMWRlNWU1MGI0MWIxOGJlMzA4MGNmN2Y1MmFiZGJlY2U5NDg2YjE1OTU5YjljMTY5MGQ1YTM1ZDNkM2IxZjMiLCJpYXQiOjE1NjIzMDE3NjAsIm5iZiI6MTU2MjMwMTc2MCwiZXhwIjoxNTkzOTI0MTYwLCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.vP9wYfADeTuoVAkVS8wtWougIBNL0Rk2x6yo1j9xqQ_-AvfxEEuww2tvPsZgDblGrddv51jcN98LR954akkukyWv2wcSCE2JAlOZQL7Z4kYFPuGVQ7kupPaugOxMk_NsYd_BaoRoi4B8f80jZM9B4d_JnRnL9oIyZcsIG793aOsRnuEA_aNpnuoPDyYA48MVNvnT16LGMrPQi5aV3yAddWKD-kFBeuJ24ByjoMIErRSFYPKXnTjwA-mbs0LIRBwzlfdWtr5roPyDARAXzUtfO3NzeDCG5uMO-xmgw5UL_ohL0rVeAfuPjwZZljNPZsLjwdmc0YTBB82v-fmybQKxBDtIhiz8JGLGrWtWhlS_bCh8hij0296zjMWA4yW-tz6gynu64xF_7khG4w4I1ZsQFgssoLPU-Rg2x943Aknub5NmKWoPaUjN6zcxVle1nNquqloiZ7XZh878da2xqbRTRfqxhTAOMFQHyoOMPIidFUihhNZxNC9lV5anHrjg7gHXRm7ESxzj2qHCJX9csnm1DntnZE72musAG0Tlfg4ylpyc33060RbJI8L_Aps_dOlSi2KTfKIwavutLoOoTJmRJDibzeX22Hs7HIQySnJdumWq7KtI_i0NSWHk0fo2ZiGInvuba83uDV049f3lSwV6CZz2v5vefLUCoMqQsBPDy0U' http://localhost:8001/api/user
+
+
+ # Log
+
+    error_log("---------------------------------------");
+    \Log::info(auth()->guard('api')->user());

@@ -19,11 +19,12 @@ class UpdateUser
      */
     public function resolve($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
+        // 画像生成
         $this->creageImage($args);
 
-        //Userアップデート
+        // Userアップデート
         $data = ['name' => $args['name'], 'feature1' => $args['feature1']];
-        $user = User::find($args['id']);
+        $user = auth()->guard('api')->user();
         $user->update($data);
         return $user;
     }
