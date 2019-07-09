@@ -383,13 +383,25 @@ use App\Http\Requests\EditTask;
 (6)設定
 postgres://DB_USERNAME:DB_PASSWORD@DB_HOST:5432/DB_DATABASE
 を参考に。
-postgres://vszuumtqtccsoy:12948759c15ad39a05bffd7fcf27d17629a479a09fd4916fc52919c425509c4d@ec2-23-21-91-183.compute-1.amazonaws.com:5432/d317ebuu0sitv1
+postgres://xxxxx:yyyyy@ec2-zz-zz-zzz-zz.compute-1.amazonaws.com:5432/abcd1234
 
 $ heroku config:set DB_CONNECTION=pgsql
 $ heroku config:set DB_HOST=ec2-zz-zz-zzz-zz.compute-1.amazonaws.com
 $ heroku config:set DB_DATABASE=abcd1234
 $ heroku config:set DB_USERNAME=xxxxx
 $ heroku config:set DB_PASSWORD=yyyyy
+
+
+## backend
+postgres://gafjsmmedogobd:a73aa9e67e76084ba53c89c5e11430eea39a02c028ef4ae9f2cc5e38a8728b1e@ec2-107-20-173-2.compute-1.amazonaws.com:5432/dlm2ejcm1nsq1
+
+
+
+$ heroku config:set DB_CONNECTION=pgsql
+$ heroku config:set DB_HOST=ec2-107-20-173-2.compute-1.amazonaws.com
+$ heroku config:set DB_DATABASE=dlm2ejcm1nsq1
+$ heroku config:set DB_USERNAME=gafjsmmedogobd
+$ heroku config:set DB_PASSWORD=a73aa9e67e76084ba53c89c5e11430eea39a02c028ef4ae9f2cc5e38a8728b1e
 
 (7)SendGrid アドオン登録
 
