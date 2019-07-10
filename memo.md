@@ -437,6 +437,7 @@ php artisan make:seeder UsersTableSeeder
 php artisan db:seed --class=UsersTableSeeder
 php artisan db:seed --class=CommentsTableSeeder
 php artisan db:seed --class=LikesTableSeeder
+php artisan db:seed --class=TalksTableSeeder
 
 
 

@@ -25,6 +25,7 @@ type User {
     created_at: DateTime!
     updated_at: DateTime!
     comments: [Comment!]! @hasMany
+    talks: [Talk!]! @hasMany
     likes: [Like!]! @hasMany
     liked: Boolean
 }
@@ -32,6 +33,13 @@ type User {
 type Comment{
     id: ID!
     content: String!
+}
+
+type Talk{
+    id: ID!
+    sentence1: String
+    sentence2: String
+    sentence3: String
 }
 
 type Like{
