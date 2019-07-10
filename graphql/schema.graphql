@@ -25,11 +25,18 @@ type User {
     created_at: DateTime!
     updated_at: DateTime!
     comments: [Comment!]! @hasMany
+    likes: [Like!]! @hasMany
+    liked: Boolean
 }
 
 type Comment{
     id: ID!
     content: String!
+}
+
+type Like{
+    id: ID!
+    liked_user_id: Int
 }
 
 type AuthedUser {

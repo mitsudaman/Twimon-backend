@@ -51,4 +51,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+    protected $appends = ['liked'];
+
+    public function getLikedAttribute()
+    {
+        $current_user = auth()->guard('api')->user();
+        if(is_null($current_user)){
+            return false;
+        }
+        $collection = collect($this->likes);
+        return $collection->where('liked_user_id', $current_user->id)->isNotEmpty();
+    }
 }

@@ -392,9 +392,8 @@ $ heroku config:set DB_USERNAME=xxxxx
 $ heroku config:set DB_PASSWORD=yyyyy
 
 
-## backend
+-- backend
 postgres://gafjsmmedogobd:a73aa9e67e76084ba53c89c5e11430eea39a02c028ef4ae9f2cc5e38a8728b1e@ec2-107-20-173-2.compute-1.amazonaws.com:5432/dlm2ejcm1nsq1
-
 
 
 $ heroku config:set DB_CONNECTION=pgsql
@@ -407,6 +406,13 @@ $ heroku config:set DB_PASSWORD=a73aa9e67e76084ba53c89c5e11430eea39a02c028ef4ae9
 
 ・クレカ登録
 ・verification 用でsms認証
+
+(8)APP KEY
+heroku config:set APP_KEY=$(php artisan --no-ansi key:generate --show)
+
+
+(9)migration 実行
+heroku run "php artisan migrate"
 
 # lighthouse
 
@@ -430,6 +436,7 @@ php artisan migrate:refresh --seed
 php artisan make:seeder UsersTableSeeder
 php artisan db:seed --class=UsersTableSeeder
 php artisan db:seed --class=CommentsTableSeeder
+php artisan db:seed --class=LikesTableSeeder
 
 
 
@@ -546,7 +553,7 @@ https://ditecnologia.com/2019/06/24/graphql-auth-with-passport-and-lighthouse-ph
 composer require laravel/passport
 php artisan passport:install
 php artisan migrate
- php artisan passport:client --personal
+php artisan passport:client --personal
 
  
 
