@@ -6,9 +6,10 @@ scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 
 type Query {
     getRedirectUrl: String!
-    users: [User!]! @paginate
-    user(id: ID @eq,name: String @eq): User @find(model: "App\\User")
     me: User @middleware(checks: ["auth:api"]) @auth
+    user(id: ID @eq,name: String @eq): User @find(model: "App\\User")
+    users: [User!]! @paginate
+    getLikeUsers(liked_user_id: ID! @eq): [Like!]! @paginate
 }
 
 type User {
@@ -38,7 +39,9 @@ type Talk{
 
 type Like{
     id: ID
+    user_id: ID
     liked_user_id: ID
+    user:User
 }
 
 type AuthedUser {
@@ -64,7 +67,7 @@ input UpdateTalksRelation {
 }
 
 input CreateTalkInput {
-    kind:String
+    kind: String
     sentence1: String!
     sentence2: String
     sentence3: String
