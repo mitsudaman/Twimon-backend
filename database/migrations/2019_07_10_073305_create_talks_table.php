@@ -17,10 +17,10 @@ class CreateTalksTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->Integer('kind');
+            $table->Integer('kind')->default(1);
             $table->string('sentence1');
-            $table->string('sentence2');
-            $table->string('sentence3');
+            $table->string('sentence2')->nullable();
+            $table->string('sentence3')->nullable();
             $table->timestamps();
         });
     }

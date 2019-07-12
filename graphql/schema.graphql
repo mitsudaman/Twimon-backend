@@ -24,15 +24,9 @@ type User {
     img_src: String
     created_at: DateTime!
     updated_at: DateTime!
-    comments: [Comment!]! @hasMany
-    talks: [Talk!]! @hasMany
+    talks(orderBy: [OrderByClause!] @orderBy): [Talk!]! @hasMany
     likes: [Like!]! @hasMany
     liked: Boolean
-}
-
-type Comment{
-    id: ID!
-    content: String!
 }
 
 type Talk{
@@ -52,8 +46,34 @@ type AuthedUser {
 }
 
 type Mutation {
-  addOrDeleteLikeUser(user_id:ID): Like @middleware(checks: ["auth:api"])
-  updateUser(name: String, feature1: String, description: String): User @middleware(checks: ["auth:api"])
-  authenticateUserGql: AuthedUser
+    addOrDeleteLikeUser(user_id:ID): Like @middleware(checks: ["auth:api"])
+    updateUser(name: String, feature1: String, description: String): User @middleware(checks: ["auth:api"])
+    authenticateUserGql: AuthedUser
+    updateUserTalks(input: UpdateUserInput! @spread): User @update
 }
 
+input UpdateUserInput {
+    id: ID!
+    name: String
+    talks: UpdateTalksRelation
+}
+
+input UpdateTalksRelation {
+    create: [CreateTalkInput!]
+    update: [UpdateTalkInput!]
+}
+
+input CreateTalkInput {
+    kind:String
+    sentence1: String!
+    sentence2: String
+    sentence3: String
+}
+
+input UpdateTalkInput {
+    id: ID!
+    kind:String
+    sentence1: String
+    sentence2: String
+    sentence3: String
+}
