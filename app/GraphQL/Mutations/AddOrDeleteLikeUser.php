@@ -20,16 +20,20 @@ class AddOrDeleteLikeUser
      */
     public function resolve($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
-        $like = like::where('user_id',$args['user_id'])
-        ->where('liked_user_id',\Auth::user()->id)->first();
+
+        $user = User::find($args['user_id']);
+        $like = $user->likes()->where('liked_user_id',\Auth::user()->id)->first();
         
+
         if(empty($like)){
             $like = Like::create([
                 'user_id' => $args['user_id'],
                 'liked_user_id' => \Auth::user()->id
             ]);
+            $user->increment('like_ct', 1);
         }else{
             $like = $like->delete();
+            $user->decrement('like_ct', 1);
         }
 
         return $like;
@@ -44,7 +48,7 @@ class AddOrDeleteLikeUser
         // }
 
         // $user = User::find($args['user_id']);
-        // return $user->liked;
+        // return $user->likes();
 
     }
 }

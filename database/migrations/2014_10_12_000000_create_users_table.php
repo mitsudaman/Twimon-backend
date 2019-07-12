@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('feature2_content')->nullable();
             $table->string('description')->nullable();
             $table->string('img_src')->nullable();
+            $table->bigInteger('like_ct')->default(0);
             // $table->string('email')->unique();
             // $table->timestamp('email_verified_at')->nullable();
             // $table->string('password');
