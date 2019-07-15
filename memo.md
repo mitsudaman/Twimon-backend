@@ -366,6 +366,10 @@ use App\Http\Requests\EditTask;
     ▼heroku 公式サイト
     https://devcenter.heroku.com/articles/heroku-cli
 
+(の前にbrew install)
+https://brew.sh/index_ja
+
+
 (2)ログイン
    $ heroku login
 
@@ -496,6 +500,10 @@ php artisan vendor:publish --provider="Nuwave\Lighthouse\LighthouseServiceProvid
 ▼Laravel + Socialite + Vue(Nuxt)でtwitter認証をしようとするとsession周りで躓きます。
 https://teratail.com/questions/124977
 
+これ足す
+    TWITTER_ACCESS_TOKEN=2578449780-tpnLnmqJ6wrusZqhSSDJYrbPrgc21R08Z6Qwra9
+    TWITTER_ACCESS_TOKEN_SECRET=8zQG2b1tu3SzoV04BiluEr0kZY9r5zNB48xxaNnuLdHpo
+
 
 $user = Socialite::driver('twitter')->userFromTokenAndSecret(env('TWITTER_ACCESS_TOKEN'), env('TWITTER_ACCESS_TOKEN_SECRET'));
 
@@ -565,3 +573,9 @@ php artisan passport:client --personal
 
     error_log("---------------------------------------");
     \Log::info(auth()->guard('api')->user());
+
+
+
+# cookie
+▼Nuxt.jsでCookieを使って閲覧したデータを取得する方法
+https://qiita.com/sauzar18/items/6eb3fe0218e3cf6badbc

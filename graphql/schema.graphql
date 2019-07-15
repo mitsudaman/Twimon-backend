@@ -46,6 +46,7 @@ type Like{
 
 type AuthedUser {
     access_token: String
+    me: User
 }
 
 type Mutation {

@@ -32,7 +32,8 @@ class AuthenticateUserGql
         ]);
 
         return [
-            'access_token' => $user->createToken('twimonToken')->accessToken
+            'access_token' => $user->createToken('twimonToken')->accessToken,
+            'me' => $user
         ];
     }
 }

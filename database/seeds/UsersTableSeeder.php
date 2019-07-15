@@ -101,7 +101,18 @@ class UsersTableSeeder extends Seeder
             'feature2_content' => '99',
             'img_src' => 'mitsudamattyo.jpg'
         ]);
-        // factory('App\User', 50)->create();
+        User::create([
+            'serial_number' => DB::table('users')->max('serial_number')+1,
+            'account_id' => '000009',
+            'name' => 'ブラックパラディン',
+            'title' => 'ツイットモンスター',
+            'feature1' => 'タイプ',
+            'feature1_content' => 'まほう',
+            'feature2' => 'レベル',
+            'feature2_content' => '99',
+            'img_src' => 'blackparadin.jpg'
+        ]);
+        factory('App\User', 50)->create();
         // //特定のデータを追加
         // User::create([
         //     'name' => 'ツイモン',
