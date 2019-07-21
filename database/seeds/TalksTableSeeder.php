@@ -17,6 +17,11 @@ class TalksTableSeeder extends Seeder
             'kind' => 1,
             'sentence1' => 'あああああああああ',
             'sentence2' => 'いいいいいいいいい',
+        ]);
+        Talk::create([
+            'user_id' => 2,
+            'kind' => 1,
+            'sentence1' => 'あああああああああ',
             'sentence3' => 'ううううううううう',
         ]);
         Talk::create([

@@ -3,6 +3,11 @@
 docker-compose up -d nginx postgres nuxt
 docker-compose up nginx postgres
 
+
+php artisan migrate:reset
+php artisan migrate:refresh --seed
+php artisan passport:install
+
 ## \<laravel>
 
 
@@ -443,7 +448,8 @@ php artisan db:seed --class=CommentsTableSeeder
 php artisan db:seed --class=LikesTableSeeder
 php artisan db:seed --class=TalksTableSeeder
 
-
+・autoload
+composer dump-autoload
 
 # twitter login
 ▼ Nuxt.jsとLaravelを使ってTwitterログイン機能を実装する

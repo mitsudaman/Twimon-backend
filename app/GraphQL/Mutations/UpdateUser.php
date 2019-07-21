@@ -23,7 +23,15 @@ class UpdateUser
         $this->creageImage($args);
 
         // Userアップデート
-        $data = ['name' => $args['name'], 'feature1' => $args['feature1']];
+        $data = [
+            'name' => $args['name'], 
+            // 'title' => $args['title'],
+            'feature1' => $args['feature1'],
+            // 'feature1_content' => $args['feature1_content'],
+            // 'feature2' => $args['feature2'],
+            // 'feature2_content' => $args['feature2_content'],
+            'description' => $args['description'],
+        ];
         $user = auth()->guard('api')->user();
         $user->update($data);
         return $user;
