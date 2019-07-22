@@ -21,46 +21,42 @@ class UpdateUserTalks
      */
     public function resolve($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
-        $user = User::find($args['id']);
-        if($user->id==\Auth::user()->id){
-            // Create
-            if(array_has($args,'talks.create')){
-                $arr_create = array_get($args,'talks.create');
-                $user->talks()->createMany($arr_create);
-            }
-            
-            // Update
-            if(array_has($args,'talks.update')){
-                $arr_update = array_get($args,'talks.update');
-                foreach ($arr_update as $value) {
-                    $talk = Talk::find($value['id']);
-                    if($talk->user_id==\Auth::user()->id){
-                        $data = [
-                            'sentence1' => $value['sentence1'],
-                            'sentence2' => $value['sentence2'],
-                            'sentence3' => $value['sentence3'],
-                        ];
-                        $talk->update($data);
-                    }else{
-                        abort(403, 'Unauthorized action.');
-                    }
+        $user = \Auth::user();
+        // Create
+        if(array_has($args,'talks.create')){
+            $arr_create = array_get($args,'talks.create');
+            $user->talks()->createMany($arr_create);
+        }
+        
+        // Update
+        if(array_has($args,'talks.update')){
+            $arr_update = array_get($args,'talks.update');
+            foreach ($arr_update as $value) {
+                $talk = Talk::find($value['id']);
+                if($talk->user_id==$user->id){
+                    $data = [
+                        'sentence1' => $value['sentence1'],
+                        'sentence2' => $value['sentence2'],
+                        'sentence3' => $value['sentence3'],
+                    ];
+                    $talk->update($data);
+                }else{
+                    abort(403, 'Unauthorized action.');
                 }
             }
+        }
 
-            // Delete
-            if(array_has($args,'talks.delete')){
-                $arr_delete = array_get($args,'talks.delete');
-                foreach ($arr_delete as $value) {
-                    $talk = Talk::find($value);
-                    if($talk->user_id==\Auth::user()->id){
-                        $talk->delete();
-                    }else{
-                        abort(403, 'Unauthorized action.');
-                    }
+        // Delete
+        if(array_has($args,'talks.delete')){
+            $arr_delete = array_get($args,'talks.delete');
+            foreach ($arr_delete as $value) {
+                $talk = Talk::find($value);
+                if($talk->user_id==$user->id){
+                    $talk->delete();
+                }else{
+                    abort(403, 'Unauthorized action.');
                 }
             }
-        }else{
-            abort(403, 'Unauthorized action.');
         }
 
         return $user;

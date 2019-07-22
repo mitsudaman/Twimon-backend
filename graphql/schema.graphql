@@ -57,7 +57,6 @@ type Mutation {
 }
 
 input UpdateUserInput {
-    id: ID!
     name: String
     talks: UpdateTalksRelation
 }
