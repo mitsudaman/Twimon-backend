@@ -6,7 +6,7 @@ use App\User;
 use GraphQL\Type\Definition\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
-class UpdateUser
+class UpdateUserProf
 {
     /**
      * Return a value for the field.
@@ -19,18 +19,21 @@ class UpdateUser
      */
     public function resolve($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
+        $arr_prof = array_get($args,'input');
+
         // 画像生成
-        $this->creageImage($args);
+        $this->creageImage($arr_prof);
+
 
         // Userアップデート
         $data = [
-            'name' => $args['name'], 
-            // 'title' => $args['title'],
-            'feature1' => $args['feature1'],
-            // 'feature1_content' => $args['feature1_content'],
-            // 'feature2' => $args['feature2'],
-            // 'feature2_content' => $args['feature2_content'],
-            'description' => $args['description'],
+            'name' => $arr_prof['name'], 
+            'title' => $arr_prof['title'],
+            'feature1' => $arr_prof['feature1'],
+            'feature1_content' => $arr_prof['feature1_content'],
+            'feature2' => $arr_prof['feature2'],
+            'feature2_content' => $arr_prof['feature2_content'],
+            'description' => $arr_prof['description'],
         ];
         $user = auth()->guard('api')->user();
         $user->update($data);

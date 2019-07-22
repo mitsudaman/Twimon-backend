@@ -50,14 +50,23 @@ type AuthedUser {
 }
 
 type Mutation {
-    addOrDeleteLikeUser(user_id:ID): Like @middleware(checks: ["auth:api"])
-    updateUser(name: String, feature1: String, description: String): User @middleware(checks: ["auth:api"])
     authenticateUserGql: AuthedUser
-    updateUserTalks(input: UpdateUserInput! @spread): User @middleware(checks: ["auth:api"])
+    addOrDeleteLikeUser(user_id:ID): Like @middleware(checks: ["auth:api"])
+    updateUserProf(input: UpdateUserProfInput!): User @middleware(checks: ["auth:api"])
+    updateUserTalks(input: UpdateUserTalksInput! @spread): User @middleware(checks: ["auth:api"])
 }
 
-input UpdateUserInput {
-    name: String
+input UpdateUserProfInput {
+    name: String!
+    title: String!
+    feature1: String!
+    feature1_content: String!
+    feature2: String!
+    feature2_content: String!
+    description: String!
+}
+
+input UpdateUserTalksInput {
     talks: UpdateTalksRelation
 }
 
