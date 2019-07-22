@@ -3,6 +3,8 @@
 use Illuminate\Database\Seeder;
 use App\Like;
 
+// php artisan db:seed --class=LikesTableSeeder
+
 class LikesTableSeeder extends Seeder
 {
     /**

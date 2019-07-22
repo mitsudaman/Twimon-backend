@@ -578,6 +578,7 @@ php artisan passport:client --personal
  # Log
 
     error_log("---------------------------------------");
+    error_log(print_r($args, true));
     \Log::info(auth()->guard('api')->user());
 
 

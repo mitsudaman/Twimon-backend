@@ -112,7 +112,7 @@ class UsersTableSeeder extends Seeder
             'feature2_content' => '99',
             'img_src' => 'blackparadin.jpg'
         ]);
-        factory('App\User', 50)->create();
+        // factory('App\User', 50)->create();
         // //特定のデータを追加
         // User::create([
         //     'name' => 'ツイモン',

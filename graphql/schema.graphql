@@ -53,7 +53,7 @@ type Mutation {
     addOrDeleteLikeUser(user_id:ID): Like @middleware(checks: ["auth:api"])
     updateUser(name: String, feature1: String, description: String): User @middleware(checks: ["auth:api"])
     authenticateUserGql: AuthedUser
-    updateUserTalks(input: UpdateUserInput! @spread): User @update
+    updateUserTalks(input: UpdateUserInput! @spread): User @middleware(checks: ["auth:api"])
 }
 
 input UpdateUserInput {
@@ -65,6 +65,7 @@ input UpdateUserInput {
 input UpdateTalksRelation {
     create: [CreateTalkInput!]
     update: [UpdateTalkInput!]
+    delete: [ID!]
 }
 
 input CreateTalkInput {
