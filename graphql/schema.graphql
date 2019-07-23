@@ -22,7 +22,9 @@ type User {
     feature2: String
     feature2_content: String
     description: String
-    img_src: String
+    upload_img_src: String
+    sns_img_src: String
+    sns_img_use_flg: Boolean
     created_at: DateTime!
     updated_at: DateTime!
     talks(orderBy: [OrderByClause!] @orderBy): [Talk!]! @hasMany
@@ -65,6 +67,9 @@ input UpdateUserProfInput {
     feature2: String!
     feature2_content: String!
     description: String!
+    upload_img_src: String
+    sns_img_src: String
+    sns_img_use_flg: Boolean
 }
 
 input UpdateUserTalksInput {

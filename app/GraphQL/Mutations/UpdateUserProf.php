@@ -5,6 +5,7 @@ namespace App\GraphQL\Mutations;
 use App\User;
 use GraphQL\Type\Definition\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
+use Laravel\Socialite\Facades\Socialite;
 
 class UpdateUserProf
 {
@@ -24,7 +25,6 @@ class UpdateUserProf
         // 画像生成
         $this->creageImage($arr_prof);
 
-
         // Userアップデート
         $data = [
             'name' => $arr_prof['name'], 
@@ -34,7 +34,15 @@ class UpdateUserProf
             'feature2' => $arr_prof['feature2'],
             'feature2_content' => $arr_prof['feature2_content'],
             'description' => $arr_prof['description'],
+            'sns_img_use_flg' => $arr_prof['sns_img_use_flg'],
         ];
+
+        if($arr_prof['sns_img_use_flg']){
+            $twitterUser = Socialite::driver('twitter')->userFromTokenAndSecret(env('TWITTER_ACCESS_TOKEN'), env('TWITTER_ACCESS_TOKEN_SECRET'));
+            $data = array_add($data,'sns_img_src',$twitterUser->getAvatar());
+        }else{
+        }
+
         $user = auth()->guard('api')->user();
         $user->update($data);
         return $user;

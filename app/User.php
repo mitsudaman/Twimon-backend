@@ -27,7 +27,9 @@ class User extends Authenticatable
         'feature2',
         'feature2_content',
         'description',
-        'img_src',
+        'upload_img_src',
+        'sns_img_src',
+        'sns_img_use_flg',
     ];
 
     /**
@@ -68,7 +70,7 @@ class User extends Authenticatable
         $collection = collect($this->likes);
         return $collection->where('liked_user_id', $current_user->id)->isNotEmpty();
     }
-    
+
     public function getLikeCtAttribute()
     {
         return $this->likes()->count();;
