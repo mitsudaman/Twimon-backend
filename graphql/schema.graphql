@@ -8,7 +8,7 @@ type Query {
     getRedirectUrl: String!
     me: User @middleware(checks: ["auth:api"]) @auth
     user(id: ID @eq,name: String @eq): User @find(model: "App\\User")
-    users: [User!]! @paginate
+    users(orderBy: [OrderByClause!] @orderBy): [User!]! @paginate
     getLikeUsers(liked_user_id: ID! @eq): [Like!]! @paginate
 }
 
@@ -28,6 +28,7 @@ type User {
     talks(orderBy: [OrderByClause!] @orderBy): [Talk!]! @hasMany
     likes: [Like!]! @hasMany
     liked: Boolean
+    like_ct: Int
 }
 
 type Talk{
