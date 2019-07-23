@@ -586,3 +586,28 @@ php artisan passport:client --personal
 # cookie
 ▼Nuxt.jsでCookieを使って閲覧したデータを取得する方法
 https://qiita.com/sauzar18/items/6eb3fe0218e3cf6badbc
+
+
+
+# paginator
+
+type Query {
+    getLikeUsers(first: Int!, page: Int): UserPaginatorT @middleware(checks: ["auth:api"])
+}
+
+type UserPaginatorT {
+    data: [Like!]!
+    count: Int
+}
+
+public static function resolve()
+{
+    $query = Like::query();
+    $query->where('liked_user_id',\Auth::user()->id);
+    $like_user = $query->paginate(3);
+
+    return [
+        'data' => $like_user,
+        // 'count'=> User::paginate(3)->count()
+    ];
+}
