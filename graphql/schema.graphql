@@ -25,6 +25,8 @@ type User {
     upload_img_src: String
     sns_img_src: String
     sns_img_use_flg: Boolean
+    hall_of_fame_flg: Boolean
+    legend_flg: Boolean
     created_at: DateTime!
     updated_at: DateTime!
     talks(orderBy: [OrderByClause!] @orderBy): [Talk!]! @hasMany

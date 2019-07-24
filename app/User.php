@@ -30,6 +30,8 @@ class User extends Authenticatable
         'upload_img_src',
         'sns_img_src',
         'sns_img_use_flg',
+        'hall_of_fame_flg',
+        'legend_flg'
     ];
 
     /**
