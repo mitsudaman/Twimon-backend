@@ -525,7 +525,7 @@ https://choicemaker-e052f.firebaseapp.com/__/auth/handler
 http://localhost:8001/og/1
 http://localhost:8001/og/twitter/callback
 
-
+http://localhost:3000/callback
 
 
 ## 

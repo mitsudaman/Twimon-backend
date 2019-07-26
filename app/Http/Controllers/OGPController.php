@@ -9,11 +9,21 @@ use DB;
 
 class OGPController extends Controller
 {
-    public function index($id = "")
+    public function index(Request $request,$id = "")
     {
+        // print $request->session()->all();
+        // error_log(print_r($request->session()->all(), true));
         // return Socialite::driver('twitter')->redirect();
         // return Socialite::driver('twitter')->redirect()->getTargetUrl();
-        return view('ogp/index', ['id' => $id]);
+        // return view('ogp/index', ['id' => $id]);
+        // print_r($request->session()->all(),true);
+        error_log("---------------------------------------");
+        $url =Socialite::with('twitter')->stateless()->redirect();
+         error_log(print_r($request->session()->all(), true));
+        // return $request->session()->all();
+        
+        return Socialite::with('twitter')->stateless()->redirect()->getTargetUrl();
+        // return Socialite::with('twitter')->stateless()->redirect();
     }
 
      /**
@@ -23,7 +33,17 @@ class OGPController extends Controller
      */
     public function handleProviderCallback()
     {
-        $twitterUser = Socialite::driver('twitter')->userFromTokenAndSecret(env('TWITTER_ACCESS_TOKEN'), env('TWITTER_ACCESS_TOKEN_SECRET'));
+
+        error_log("---------------------------------------");
+        // return [
+        //     'user'         => "user",
+        //     'access_token' => "access_token",
+        // ];
+        
+        // error_log(print_r(Socialite::driver('twitter')->user(),true));
+        $twitterUser = Socialite::driver('twitter')->user();
+
+        // $twitterUser = Socialite::driver('twitter')->userFromTokenAndSecret(env('TWITTER_ACCESS_TOKEN'), env('TWITTER_ACCESS_TOKEN_SECRET'));
         // print_r($twitterUser->getAvatar());
 
 

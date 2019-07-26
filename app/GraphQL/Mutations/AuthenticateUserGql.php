@@ -21,6 +21,9 @@ class AuthenticateUserGql
      */
     public function resolve($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
+        error_log("---------------------------------------");
+        // error_log(Socialite::driver('twitter')->stateless()->user());
+        return Socialite::driver('twitter')->stateless()->user();
         $twitterUser = Socialite::driver('twitter')->userFromTokenAndSecret(env('TWITTER_ACCESS_TOKEN'), env('TWITTER_ACCESS_TOKEN_SECRET'));
 
         $user = User::firstOrCreate([

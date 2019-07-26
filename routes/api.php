@@ -16,3 +16,7 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+// Route::get('/og/{id}', 'OGPController@index')->name('ogp.index');
+// Route::get('/', function () { return 'Hello World'; });
+Route::get('/login/twitter', 'Auth\LoginController@redirectToProvider');
+Route::get('/login/twitter/callback', 'Auth\LoginController@handleProviderCallback');
