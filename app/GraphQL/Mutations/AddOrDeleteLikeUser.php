@@ -30,10 +30,8 @@ class AddOrDeleteLikeUser
                 'user_id' => $args['user_id'],
                 'liked_user_id' => \Auth::user()->id
             ]);
-            $user->increment('like_ct', 1);
         }else{
             $like = $like->delete();
-            $user->decrement('like_ct', 1);
         }
 
         return $like;
