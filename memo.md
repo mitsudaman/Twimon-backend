@@ -611,3 +611,26 @@ public static function resolve()
         // 'count'=> User::paginate(3)->count()
     ];
 }
+
+
+
+# S3登録
+
+▼超簡単！LaravelでS3を利用する手順
+https://qiita.com/tiwu_official/items/ecb115a92ebfebf6a92f
+
+※手順で作成したkeyはcsvでダウンロードしてLaradockと同じ階層に残してる
+
+
+    composer require league/flysystem-aws-s3-v3
+
+
+## .env ファイル
+    AWS_ACCESS_KEY_ID=
+    AWS_SECRET_ACCESS_KEY=
+    AWS_DEFAULT_REGION=ap-northeast-1
+    AWS_BUCKET=
+
+※既にenvに定義されていると動かないので注意
+
+#

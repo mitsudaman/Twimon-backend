@@ -6,6 +6,8 @@ use App\User;
 use GraphQL\Type\Definition\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class UpdateUserProf
 {
@@ -23,11 +25,15 @@ class UpdateUserProf
         $arr_prof = array_get($args,'input');
 
         // 画像生成
-        $this->creageImage($arr_prof);
+        $ogp_url = $this->creageImage($arr_prof);
+
+        // Storage::disk('s3')->put('avatars/1', $fileContents);
+
+        // return ;
 
         // Userアップデート
         $data = [
-            'name' => $arr_prof['name'], 
+            'name' => $arr_prof['name'],
             'title' => $arr_prof['title'],
             'feature1' => $arr_prof['feature1'],
             'feature1_content' => $arr_prof['feature1_content'],
@@ -72,7 +78,12 @@ class UpdateUserProf
             $font->color('#000');
         });
 
-        $save_path = storage_path('app/images/ogp2.png');
-        $img->save($save_path);
+
+        Storage::disk('s3')->put('/uploads/ogp/test.png', $img->stream(), 'public');
+        $url = Storage::disk('s3')->url('uploads/ogp/test.png');
+
+        return $url;
+        // $path = Storage::disk('s3')->put('/uploads/ogp/'.(string) Str::uuid().'.png', $img->stream(), 'public');
+
     }
 }
