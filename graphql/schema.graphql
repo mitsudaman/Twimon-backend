@@ -22,9 +22,10 @@ type User {
     feature2: String
     feature2_content: String
     description: String
-    upload_img_src: String
-    sns_img_src: String
+    upload_img_url: String
+    sns_img_url: String
     sns_img_use_flg: Boolean
+    ogp_img_url: String
     hall_of_fame_flg: Boolean
     legend_flg: Boolean
     created_at: DateTime!
@@ -69,9 +70,10 @@ input UpdateUserProfInput {
     feature2: String!
     feature2_content: String!
     description: String!
-    upload_img_src: String
-    sns_img_src: String
+    upload_img_url: String
+    sns_img_url: String
     sns_img_use_flg: Boolean!
+    ogp_img_url: String
 }
 
 input UpdateUserTalksInput {

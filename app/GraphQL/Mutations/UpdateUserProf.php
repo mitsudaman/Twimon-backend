@@ -41,11 +41,12 @@ class UpdateUserProf
             'feature2_content' => $arr_prof['feature2_content'],
             'description' => $arr_prof['description'],
             'sns_img_use_flg' => $arr_prof['sns_img_use_flg'],
+            'ogp_img_url' => $ogp_url,
         ];
 
         if($arr_prof['sns_img_use_flg']){
             $twitterUser = Socialite::driver('twitter')->userFromTokenAndSecret(env('TWITTER_ACCESS_TOKEN'), env('TWITTER_ACCESS_TOKEN_SECRET'));
-            $data = array_add($data,'sns_img_src',$twitterUser->getAvatar());
+            $data = array_add($data,'sns_img_url',$twitterUser->getAvatar());
         }else{
         }
 
