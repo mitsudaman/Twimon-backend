@@ -402,14 +402,15 @@ $ heroku config:set DB_PASSWORD=yyyyy
 
 
 -- backend
-postgres://gafjsmmedogobd:a73aa9e67e76084ba53c89c5e11430eea39a02c028ef4ae9f2cc5e38a8728b1e@ec2-107-20-173-2.compute-1.amazonaws.com:5432/dlm2ejcm1nsq1
+postgres://ukcvpsaayhazpj:4d28e25d3c8740dd7577048afc3a0d89a981f63cfd4db91f3a25c59224da2527@ec2-174-129-41-127.compute-1.amazonaws.com:5432/deec28gf8v85hb
+
 
 
 $ heroku config:set DB_CONNECTION=pgsql
-$ heroku config:set DB_HOST=ec2-107-20-173-2.compute-1.amazonaws.com
-$ heroku config:set DB_DATABASE=dlm2ejcm1nsq1
-$ heroku config:set DB_USERNAME=gafjsmmedogobd
-$ heroku config:set DB_PASSWORD=a73aa9e67e76084ba53c89c5e11430eea39a02c028ef4ae9f2cc5e38a8728b1e
+$ heroku config:set DB_HOST=ec2-174-129-41-127.compute-1.amazonaws.com
+$ heroku config:set DB_DATABASE=deec28gf8v85hb
+$ heroku config:set DB_USERNAME=ukcvpsaayhazpj
+$ heroku config:set DB_PASSWORD=4d28e25d3c8740dd7577048afc3a0d89a981f63cfd4db91f3a25c59224da2527
 
 (7)SendGrid アドオン登録
 
@@ -422,6 +423,13 @@ heroku config:set APP_KEY=$(php artisan --no-ansi key:generate --show)
 
 (9)migration 実行
 heroku run "php artisan migrate"
+
+
+##複数環境でのheroku deploy
+git remote set-url heroku git@heroku.com:twimon-backend.git
+※gitのremote先がデフォルトのheroku app指定になる
+※直接指定する場合は--app　オプションを付ける　
+    ex) heroku config:get DATABASE_URL --app twimon-backend
 
 # lighthouse
 

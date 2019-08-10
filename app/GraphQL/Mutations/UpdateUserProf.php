@@ -22,14 +22,11 @@ class UpdateUserProf
      */
     public function resolve($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
+        $user = auth()->guard('api')->user();
         $arr_prof = array_get($args,'input');
 
         // 画像生成
-        $ogp_url = $this->creageImage($arr_prof);
-
-        // Storage::disk('s3')->put('avatars/1', $fileContents);
-
-        // return ;
+        $ogp_url = $this->creageImage($arr_prof,$user);
 
         // Userアップデート
         $data = [
@@ -50,36 +47,78 @@ class UpdateUserProf
         }else{
         }
 
-        $user = auth()->guard('api')->user();
         $user->update($data);
         return $user;
     }
 
-    public function creageImage(array $args)
+    public function creageImage(array $args,User $user)
     {
         $path = storage_path('app/images/ogp.png');
         $img = \Image::make($path);
+
+        // 画像 ゾーン
+        $path2 = str_replace_last('_normal','',$user->sns_img_url);
+        $img2 = \Image::make($path2);
+        $img2->resize(150, 150);
+        $img->insert($img2, 'top-left', 70, 20);
+        $img->text("No.".sprintf('%03d', $user->serial_number), 140, 190, function($font){
+            $font->file(storage_path('app/fonts/PixelMplus10-Regular.ttf'));
+            $font->size(20);
+            $font->align('center');
+            $font->color('#000');
+        });
+
+        // プロフ
+        $prof_y_point = 60;
+        $img->text($args['name'], 300, $prof_y_point, function($font){
+            $font->file(storage_path('app/fonts/PixelMplus10-Regular.ttf'));
+            $font->size(20);
+            $font->color('#000');
+        });
+        $img->text('かめのこツイモン', 300, $prof_y_point + 35, function($font){
+            $font->file(storage_path('app/fonts/PixelMplus10-Regular.ttf'));
+            $font->size(20);
+            $font->color('#000');
+        });
+        $img->text('たかさ     0.5m', 300, $prof_y_point + 70, function($font){
+            $font->file(storage_path('app/fonts/PixelMplus10-Regular.ttf'));
+            $font->size(20);
+            $font->color('#000');
+        });
+        $img->text('おもさ     9.0ｋｇ', 300, $prof_y_point + 105, function($font){
+            $font->file(storage_path('app/fonts/PixelMplus10-Regular.ttf'));
+            $font->size(20);
+            $font->color('#000');
+        });
+
+        // せつめい
         $text = $args['description'];
 
         $c = mb_strlen($text);
-        
-        $img->text($text, 50, 100, function($font){
-            $font->file(storage_path('app/fonts/PixelMplus10-Regular.ttf'));
-            $font->size(30);
-            $font->color('#000');
+
+        $img->text($text, 40, 225, function($font){
+            $font->file(storage_path('app/fonts/PixelMplus10-Bold.ttf'));
+            $font->size(18);
+            $font->color('#fff');
         });
-        $img->text($text, 50, 175, function($font){
-            $font->file(storage_path('app/fonts/PixelMplus10-Regular.ttf'));
-            $font->size(30);
-            $font->color('#000');
+        $img->text('おなかが すぐいたくなる。', 40, 260, function($font){
+            $font->file(storage_path('app/fonts/PixelMplus10-Bold.ttf'));
+            $font->size(18);
+            $font->color('#fff');
         });
-        $img->text($text, 50, 250, function($font){
-            $font->file(storage_path('app/fonts/PixelMplus10-Regular.ttf'));
-            $font->size(30);
-            $font->color('#000');
+        $img->text('1じかんに3かい トイレに いきたがる しゅうせいを もつ。', 40, 295, function($font){
+            $font->file(storage_path('app/fonts/PixelMplus10-Bold.ttf'));
+            $font->size(18);
+            $font->color('#fff');
         });
 
+        // // ローカル実行用
+        // $save_path = storage_path('app/images/ogp2.png');
+        // $img->save($save_path);
+        // return "aaa";
 
+
+        // S3実行用
         Storage::disk('s3')->put('/uploads/ogp/test.png', $img->stream(), 'public');
         $url = Storage::disk('s3')->url('uploads/ogp/test.png');
 
