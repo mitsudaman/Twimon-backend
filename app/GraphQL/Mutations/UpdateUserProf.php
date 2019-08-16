@@ -26,8 +26,9 @@ class UpdateUserProf
         $arr_prof = array_get($args,'input');
 
         // 画像生成
-        $ogp_url = $this->creageImage($arr_prof,$user);
-
+        // $ogp_url = $this->creageImage($arr_prof,$user);
+        $ogp_url = $this->createImageFromFront($arr_prof);
+        
         // Userアップデート
         $data = [
             'name' => $arr_prof['name'],
@@ -112,18 +113,31 @@ class UpdateUserProf
             $font->color('#fff');
         });
 
-        // // ローカル実行用
-        // $save_path = storage_path('app/images/ogp2.png');
-        // $img->save($save_path);
-        // return "aaa";
+        // ローカル保存用
+        $save_path = storage_path('app/images/ogp2.png');
+        $img->save($save_path);
+        return "aaa";
 
 
-        // S3実行用
+        // S3保存用
         Storage::disk('s3')->put('/uploads/ogp/test.png', $img->stream(), 'public');
         $url = Storage::disk('s3')->url('uploads/ogp/test.png');
 
         return $url;
         // $path = Storage::disk('s3')->put('/uploads/ogp/'.(string) Str::uuid().'.png', $img->stream(), 'public');
 
+    }
+
+    public function createImageFromFront(array $args){
+        // ローカル保存用
+        $file = $args['file'];
+        $save_path = storage_path('ogp3.png');
+        $file->storeAs('images','ogp3.png');
+        return $file;
+
+        // S3保存用
+        Storage::disk('s3')->put('/uploads/ogp/test2.png', $file, 'public');
+        $url = Storage::disk('s3')->url('uploads/ogp/test2.png');
+        return $file;
     }
 }
