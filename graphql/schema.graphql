@@ -77,7 +77,7 @@ input UpdateUserProfInput {
     sns_img_url: String
     sns_img_use_flg: Boolean!
     ogp_img_url: String
-    file: Upload
+    file: String
 }
 
 input UpdateUserTalksInput {

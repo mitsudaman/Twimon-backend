@@ -118,22 +118,22 @@ class UpdateUserProf
         $img->save($save_path);
         return "aaa";
 
-
         // S3保存用
         Storage::disk('s3')->put('/uploads/ogp/test.png', $img->stream(), 'public');
         $url = Storage::disk('s3')->url('uploads/ogp/test.png');
 
         return $url;
         // $path = Storage::disk('s3')->put('/uploads/ogp/'.(string) Str::uuid().'.png', $img->stream(), 'public');
-
     }
 
     public function createImageFromFront(array $args){
         // ローカル保存用
-        $file = $args['file'];
-        $save_path = storage_path('ogp3.png');
-        $file->storeAs('images','ogp3.png');
-        return $file;
+        $image = $args['file'];
+        $image = str_replace('data:image/png;base64,', '', $image);
+        $image = str_replace(' ', '+', $image);
+        $imageName = 'ogp3.png';
+        \File::put(storage_path(). '/app/images/' . $imageName, base64_decode($image));
+        return "aaa";
 
         // S3保存用
         Storage::disk('s3')->put('/uploads/ogp/test2.png', $file, 'public');

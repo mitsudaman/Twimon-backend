@@ -642,3 +642,23 @@ https://qiita.com/tiwu_official/items/ecb115a92ebfebf6a92f
 ※既にenvに定義されていると動かないので注意
 
 #
+
+
+# SVGにBase64エンコードしてCSSに直接埋め込む
+
+
+base64 -i PixelMplus10-Regular.ttf -o output.txt
+
+して出てきた文字列を
+
+@font-face {
+                font-family: 'PixelMplus';
+                src: url("data:application/x-font-ttf; charset=utf-8; base64,〇〇〇
+}
+に入れる
+
+▼svg要素をpngに変換する際に、webフォントが適用されない。
+https://teratail.com/questions/112442
+
+▼ [Webフォント] Base64エンコードしてCSSに直接埋め込む
+https://www.cottpic.com/2018/10/embed-base64-encoded-fonts-in-css.html
