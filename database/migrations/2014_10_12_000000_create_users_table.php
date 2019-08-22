@@ -24,9 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('feature2')->nullable();
             $table->string('feature2_content')->nullable();
             $table->string('description')->nullable();
-            $table->string('upload_img_url')->nullable();
             $table->string('sns_img_url')->nullable();
-            $table->boolean('sns_img_use_flg')->default(1);
             $table->string('ogp_img_url')->nullable();
             $table->boolean('hall_of_fame_flg')->default(0);
             $table->boolean('legend_flg')->default(0);

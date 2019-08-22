@@ -27,9 +27,7 @@ class User extends Authenticatable
         'feature2',
         'feature2_content',
         'description',
-        'upload_img_url',
         'sns_img_url',
-        'sns_img_use_flg',
         'ogp_img_url',
         'hall_of_fame_flg',
         'legend_flg'
