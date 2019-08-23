@@ -425,6 +425,12 @@ heroku config:set APP_KEY=$(php artisan --no-ansi key:generate --show)
 heroku run "php artisan migrate"
 
 
+# heroku 運営編
+ heroku内に入る
+ heroku run bash
+ 
+
+
 ##複数環境でのheroku deploy
 git remote set-url heroku git@heroku.com:twimon-backend.git
 ※gitのremote先がデフォルトのheroku app指定になる

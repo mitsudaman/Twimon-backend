@@ -13,6 +13,7 @@ class OGPController extends Controller
     {
         // return Socialite::driver('twitter')->redirect();
         // return Socialite::driver('twitter')->redirect()->getTargetUrl();
+        print_r(User::find($id));
         return view('ogp/index', ['id' => $id]);
     }
 
