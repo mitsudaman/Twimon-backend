@@ -14,6 +14,9 @@ class OGPController extends Controller
         // return Socialite::driver('twitter')->redirect();
         // return Socialite::driver('twitter')->redirect()->getTargetUrl();
         print_r(User::find($id));
+        print_r('---------------------------');
+        print_r(is_null(auth()->guard('api')->user()));
+        print_r(auth()->guard('api')->user());
         return view('ogp/index', ['id' => $id]);
     }
 
