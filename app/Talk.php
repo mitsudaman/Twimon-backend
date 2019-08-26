@@ -26,6 +26,8 @@ class Talk extends Model
         'sentence1', 
         'sentence2', 
         'sentence3', 
+        'sentence4', 
+        'sentence5', 
     ];
 
     public function user():BelongsTo

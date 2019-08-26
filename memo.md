@@ -430,6 +430,9 @@ heroku run "php artisan migrate"
  heroku内に入る(作ったファイル出たら消えるパターン)
  heroku run bash
 
+
+
+
 ## Internal server エラー
 
  heroku内に入る
@@ -438,7 +441,9 @@ heroku run "php artisan migrate"
 ▼[PHP] heroku でプライベートアクセストークンが生成できないエラーがおきたときの解消法
 https://qiita.com/penton310/items/6d4d3d735801443ebd53
 
-
+ls -la storage/
+chmod -R 777 storage
+php artisan passport:keys
 
 
 ##複数環境でのheroku deploy

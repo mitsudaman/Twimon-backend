@@ -21,6 +21,8 @@ class CreateTalksTable extends Migration
             $table->string('sentence1');
             $table->string('sentence2')->nullable();
             $table->string('sentence3')->nullable();
+            $table->string('sentence4')->nullable();
+            $table->string('sentence5')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
