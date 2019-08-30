@@ -28,6 +28,7 @@ class CreateUsersTable extends Migration
             $table->string('ogp_img_url')->nullable();
             $table->boolean('hall_of_fame_flg')->default(0);
             $table->boolean('legend_flg')->default(0);
+            $table->Integer('like_ct')->default(0);
 
             // $table->string('email')->unique();
             // $table->timestamp('email_verified_at')->nullable();

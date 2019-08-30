@@ -29,12 +29,12 @@ type User {
     ogp_img_url: String
     hall_of_fame_flg: Boolean
     legend_flg: Boolean
+    like_ct: Int
     created_at: DateTime!
     updated_at: DateTime!
     talks(orderBy: [OrderByClause!] @orderBy): [Talk!]! @hasMany
     likes: [Like!]! @hasMany
     liked: Boolean
-    like_ct: Int
 }
 
 type Talk{

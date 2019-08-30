@@ -20,33 +20,20 @@ class AddOrDeleteLikeUser
      */
     public function resolve($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
-
         $user = User::find($args['user_id']);
         $like = $user->likes()->where('liked_user_id',\Auth::user()->id)->first();
         
-
         if(empty($like)){
             $like = Like::create([
                 'user_id' => $args['user_id'],
                 'liked_user_id' => \Auth::user()->id
-            ]);
+            ]);            
+            $user->increment('like_ct', 1);
         }else{
             $like = $like->delete();
+            $user->decrement('like_ct', 1);
         }
 
         return $like;
-
-        // $user = User::find($args['user_id']);
-        // if($user->liked){
-        //     $user->likes()->where('liked_user_id',\Auth::user()->id)->first()->delete();
-        // }else{
-        //     $user->likes()->create([
-        //         'liked_user_id' => \Auth::user()->id,
-        //     ]);
-        // }
-
-        // $user = User::find($args['user_id']);
-        // return $user->likes();
-
     }
 }
