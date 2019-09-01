@@ -121,12 +121,12 @@ class UpdateUserProf
 
     public function createImageFromFront(array $args){
         // ローカル保存用
-        $image = $args['file'];
-        $image = str_replace('data:image/png;base64,', '', $image);
-        $image = str_replace(' ', '+', $image);
-        $imageName = '';
-        \File::put(storage_path(). '/app/images/ogp3.png', base64_decode($image));
-        return "aaa";
+        // $image = $args['file'];
+        // $image = str_replace('data:image/png;base64,', '', $image);
+        // $image = str_replace(' ', '+', $image);
+        // $imageName = '';
+        // \File::put(storage_path(). '/app/images/ogp3.png', base64_decode($image));
+        // return "aaa";
 
         // S3保存用
         Storage::disk('s3')->put('/uploads/ogp/test2.png', base64_decode($image), 'public');
