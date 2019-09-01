@@ -61,7 +61,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Like::class);
     }
-    protected $appends = ['liked','like_ct'];
+    protected $appends = ['liked'];
 
     public function getLikedAttribute()
     {
@@ -71,10 +71,5 @@ class User extends Authenticatable
         }
         $collection = collect($this->likes);
         return $collection->where('liked_user_id', $current_user->id)->isNotEmpty();
-    }
-
-    public function getLikeCtAttribute()
-    {
-        return $this->likes()->count();;
     }
 }

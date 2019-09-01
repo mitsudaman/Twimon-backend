@@ -441,16 +441,25 @@ heroku run "php artisan migrate"
 ▼[PHP] heroku でプライベートアクセストークンが生成できないエラーがおきたときの解消法
 https://qiita.com/penton310/items/6d4d3d735801443ebd53
 
-ls -la storage/
-chmod -R 777 storage
-php artisan passport:keys
+    ls -la storage/
+    chmod -R 777 storage
+    php artisan passport:keys
 
 
 ##複数環境でのheroku deploy
 git remote set-url heroku git@heroku.com:twimon-backend.git
+
 ※gitのremote先がデフォルトのheroku app指定になる
 ※直接指定する場合は--app　オプションを付ける　
     ex) heroku config:get DATABASE_URL --app twimon-backend
+
+## heroku push
+git push heroku master
+
+## 初期設定
+heroku run "php artisan migrate:reset"
+heroku run "php artisan migrate:refresh --seed"
+heroku run "php artisan passport:install"
 
 # lighthouse
 
