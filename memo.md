@@ -430,7 +430,8 @@ heroku run "php artisan migrate"
  heroku内に入る(作ったファイル出たら消えるパターン)
  heroku run bash
 
-
+ heroku 更新
+ git push heroku master
 
 
 ## Internal server エラー
