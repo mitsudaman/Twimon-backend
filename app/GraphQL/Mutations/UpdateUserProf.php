@@ -49,9 +49,10 @@ class UpdateUserProf
     {
         $path = storage_path('app/images/ogp.png');
         $img = \Image::make($path);
-
+        $twitterUser = Socialite::driver('twitter')->userFromTokenAndSecret(env('TWITTER_ACCESS_TOKEN'), env('TWITTER_ACCESS_TOKEN_SECRET'));
+        
         // 画像 ゾーン
-        $path2 = str_replace_last('_normal','',$user->sns_img_url);
+        $path2 = str_replace_last('_normal','',str_replace_last('_normal', '', $twitterUser->getAvatar()));
         $img2 = \Image::make($path2);
         $img2->resize(150, 150);
         $img->insert($img2, 'top-left', 70, 20);
@@ -65,7 +66,6 @@ class UpdateUserProf
         // プロフ
         $prof_x_point = 280;
         $prof_y_point = 58;
-        $twitterUser = Socialite::driver('twitter')->userFromTokenAndSecret(env('TWITTER_ACCESS_TOKEN'), env('TWITTER_ACCESS_TOKEN_SECRET'));
 
         $fontSize=$this->calcProfFontSize('@'.$twitterUser->nickname);
         $img->text('@'.$twitterUser->nickname, $prof_x_point, $prof_y_point, function($font) use ($fontSize){
