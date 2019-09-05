@@ -29,6 +29,7 @@ class AuthenticateUserGql
             'serial_number' => DB::table('users')->max('serial_number')+1,
             'name' => $twitterUser->getName(),
             'sns_img_url' => str_replace_last('_normal', '', $twitterUser->getAvatar()),
+            'twitter_followers_count' => $twitterUser->getName(),
         ]);
 
         return [

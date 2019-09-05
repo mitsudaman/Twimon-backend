@@ -65,12 +65,12 @@ type Mutation {
 
 input UpdateUserProfInput {
     name: String!
-    title: String!
-    feature1: String!
-    feature1_content: String!
-    feature2: String!
-    feature2_content: String!
-    description: String!
+    title: String
+    feature1: String
+    feature1_content: String
+    feature2: String
+    feature2_content: String
+    description: String
     sns_img_url: String
     ogp_img_url: String
     file: String

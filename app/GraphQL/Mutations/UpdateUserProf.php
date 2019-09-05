@@ -26,8 +26,8 @@ class UpdateUserProf
         $arr_prof = array_get($args,'input');
 
         // 画像生成
-        // $ogp_url = $this->creageImage($arr_prof,$user);
-        $ogp_url = $this->createImageFromFront($arr_prof);
+        $ogp_url = $this->creageImage($arr_prof,$user);
+        // $ogp_url = $this->createImageFromFront($arr_prof);
         
         // Userアップデート
         $data = [
@@ -63,44 +63,66 @@ class UpdateUserProf
         });
 
         // プロフ
-        $prof_y_point = 60;
-        $img->text($args['name'], 300, $prof_y_point, function($font){
+        $prof_x_point = 280;
+        $prof_y_point = 58;
+        $twitterUser = Socialite::driver('twitter')->userFromTokenAndSecret(env('TWITTER_ACCESS_TOKEN'), env('TWITTER_ACCESS_TOKEN_SECRET'));
+
+        $fontSize=$this->calcProfFontSize('@'.$twitterUser->nickname);
+        $img->text('@'.$twitterUser->nickname, $prof_x_point, $prof_y_point, function($font) use ($fontSize){
+            $font->file(storage_path('app/fonts/PixelMplus10-Regular.ttf'));
+            $font->size($fontSize);
+            $font->color('#000');
+        });
+        $fontSize=$this->calcProfFontSize($args['name']);
+        $img->text($args['name'], $prof_x_point, $prof_y_point + 36, function($font) use ($fontSize){
+            $font->file(storage_path('app/fonts/PixelMplus10-Regular.ttf'));
+            $font->size($fontSize);
+            $font->color('#000');
+        });
+        $fontSize=$this->calcProfFontSize($args['title']);
+        $img->text($args['title'], $prof_x_point, $prof_y_point + 72, function($font) use ($fontSize){
+            $font->file(storage_path('app/fonts/PixelMplus10-Regular.ttf'));
+            $font->size($fontSize);
+            $font->color('#000');
+        });
+        $img->text("戦闘力", $prof_x_point, $prof_y_point + 108, function($font){
             $font->file(storage_path('app/fonts/PixelMplus10-Regular.ttf'));
             $font->size(20);
             $font->color('#000');
         });
-        $img->text('かめのこツイモン', 300, $prof_y_point + 35, function($font){
+        $img->text($twitterUser->user['followers_count'], $prof_x_point+150, $prof_y_point + 108, function($font){
             $font->file(storage_path('app/fonts/PixelMplus10-Regular.ttf'));
             $font->size(20);
+            $font->align('center');
             $font->color('#000');
         });
-        $img->text('たかさ     0.5m', 300, $prof_y_point + 70, function($font){
-            $font->file(storage_path('app/fonts/PixelMplus10-Regular.ttf'));
-            $font->size(20);
-            $font->color('#000');
-        });
-        $img->text('おもさ     9.0ｋｇ', 300, $prof_y_point + 105, function($font){
-            $font->file(storage_path('app/fonts/PixelMplus10-Regular.ttf'));
-            $font->size(20);
-            $font->color('#000');
-        });
+
+        // パラメータ確認用
+        // ハンバーガーキッドｱあああああいうえおか はば39 Byte60 長さ20
+        // $strWidth = mb_strwidth($args['title']);
+        // $img->text('はば: '.mb_strwidth($args['title']).' Byte: '.strlen($args['title']).' 長さ: '.mb_strlen($args['title']), $prof_x_point, $prof_y_point + 105, function($font){
+        //     $font->file(storage_path('app/fonts/PixelMplus10-Regular.ttf'));
+        //     $font->size(20);
+        //     $font->color('#000');
+        // });
+
 
         // せつめい
         $text = $args['description'];
 
         $c = mb_strlen($text);
 
-        $img->text($text, 40, 225, function($font){
+        $img->text($args['description'], 40, 225, function($font){
             $font->file(storage_path('app/fonts/PixelMplus10-Bold.ttf'));
             $font->size(18);
             $font->color('#fff');
         });
-        $img->text('おなかが すぐいたくなる。', 40, 260, function($font){
+        $img->text($args['description'], 40, 260, function($font){
             $font->file(storage_path('app/fonts/PixelMplus10-Bold.ttf'));
             $font->size(18);
             $font->color('#fff');
         });
-        $img->text('1じかんに3かい トイレに いきたがる しゅうせいを もつ。', 40, 295, function($font){
+        $img->text($args['description'], 40, 295, function($font){
             $font->file(storage_path('app/fonts/PixelMplus10-Bold.ttf'));
             $font->size(18);
             $font->color('#fff');
@@ -132,5 +154,15 @@ class UpdateUserProf
         Storage::disk('s3')->put('/uploads/ogp/test2.png', base64_decode($image), 'public');
         $url = Storage::disk('s3')->url('uploads/ogp/test2.png');
         return "aaa";
+    }
+    public function calcProfFontSize(string $text){
+        $strWidth = mb_strwidth($text);
+        $fontSize=20;
+        if($strWidth>36) $fontSize=13;
+        else if($strWidth>35) $fontSize=14;
+        else if($strWidth>33) $fontSize=16;
+        else if($strWidth>30) $fontSize=17;
+        else if($strWidth>27) $fontSize=18;
+        return $fontSize;
     }
 }

@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('account_id');
             $table->string('name');
             $table->string('title')->nullable();
+            $table->string('type')->nullable();
             $table->string('feature1')->nullable();
             $table->string('feature1_content')->nullable();
             $table->string('feature2')->nullable();
@@ -29,6 +30,7 @@ class CreateUsersTable extends Migration
             $table->boolean('hall_of_fame_flg')->default(0);
             $table->boolean('legend_flg')->default(0);
             $table->Integer('like_ct')->default(0);
+            $table->Integer('twitter_followers_count')->default(0);
 
             // $table->string('email')->unique();
             // $table->timestamp('email_verified_at')->nullable();
