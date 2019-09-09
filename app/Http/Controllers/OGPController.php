@@ -11,17 +11,10 @@ class OGPController extends Controller
 {
     public function index($id = "")
     {
-        // return Socialite::driver('twitter')->redirect();
-        // return Socialite::driver('twitter')->redirect()->getTargetUrl();
-        // print_r(User::find($id));
-        // print_r('---------------------------');
-        // print_r(is_null(auth()->guard('api')->user()));
-        // print_r(auth()->guard('api')->user());
-
         $twitterUser = Socialite::driver('twitter')->userFromTokenAndSecret(env('TWITTER_ACCESS_TOKEN'), env('TWITTER_ACCESS_TOKEN_SECRET'));
-        print_r($twitterUser->user['followers_count']);
-
-        return view('ogp/index', ['id' => $id]);
+        // print_r($twitterUser->user['followers_count']);
+        $user = User::find($id);
+        return view('ogp/index', ['id' => $id, 'img' => $user->ogp_img_url]);
     }
 
      /**

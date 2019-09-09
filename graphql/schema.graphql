@@ -77,7 +77,6 @@ input UpdateUserProfInput {
     description3: String
     sns_img_url: String
     ogp_img_url: String
-    file: String
 }
 
 input UpdateUserTalksInput {
