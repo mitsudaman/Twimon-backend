@@ -23,7 +23,9 @@ type User {
     feature1_content: String
     feature2: String
     feature2_content: String
-    description: String
+    description1: String
+    description2: String
+    description3: String
     sns_img_url: String
     ogp_img_url: String
     hall_of_fame_flg: Boolean
@@ -69,7 +71,9 @@ input UpdateUserProfInput {
     feature1_content: String
     feature2: String
     feature2_content: String
-    description: String
+    description1: String
+    description2: String
+    description3: String
     sns_img_url: String
     ogp_img_url: String
     file: String

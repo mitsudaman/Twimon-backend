@@ -99,6 +99,9 @@ class UsersTableSeeder extends Seeder
             'feature1_content' => 'みず',
             'feature2' => 'レベル',
             'feature2_content' => '99',
+            'description1' => 'ふくおかに せいそくする うぇぶの ぷろぐらまー。',
+            'description2' => 'ぶらっくな かいしゃから すぐいなくなる。2びょう',
+            'description3' => 'かんに 1000もじの コードを かくことができる。',
             'sns_img_url' => 'https://twimon.s3-ap-northeast-1.amazonaws.com/uploads/seeds/gattyo/mitsudamattyo.jpg'
         ]);
         User::create([

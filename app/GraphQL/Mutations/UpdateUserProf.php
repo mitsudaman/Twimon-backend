@@ -37,7 +37,9 @@ class UpdateUserProf
             'feature1_content' => $arr_prof['feature1_content'],
             'feature2' => $arr_prof['feature2'],
             'feature2_content' => $arr_prof['feature2_content'],
-            'description' => $arr_prof['description'],
+            'description1' => $arr_prof['description1'],
+            'description2' => $arr_prof['description2'],
+            'description3' => $arr_prof['description3'],
             'ogp_img_url' => $ogp_url,
         ];
 
@@ -50,7 +52,7 @@ class UpdateUserProf
         $path = storage_path('app/images/ogp.png');
         $img = \Image::make($path);
         $twitterUser = Socialite::driver('twitter')->userFromTokenAndSecret(env('TWITTER_ACCESS_TOKEN'), env('TWITTER_ACCESS_TOKEN_SECRET'));
-        
+
         // 画像 ゾーン
         $path2 = str_replace_last('_normal','',str_replace_last('_normal', '', $twitterUser->getAvatar()));
         $img2 = \Image::make($path2);
@@ -108,21 +110,21 @@ class UpdateUserProf
 
 
         // せつめい
-        $text = $args['description'];
+        // $text = $args['description'];
 
-        $c = mb_strlen($text);
+        // $c = mb_strlen($text);
 
-        $img->text($args['description'], 40, 225, function($font){
+        $img->text($args['description1'], 40, 225, function($font){
             $font->file(storage_path('app/fonts/PixelMplus10-Bold.ttf'));
             $font->size(18);
             $font->color('#fff');
         });
-        $img->text($args['description'], 40, 260, function($font){
+        $img->text($args['description2'], 40, 260, function($font){
             $font->file(storage_path('app/fonts/PixelMplus10-Bold.ttf'));
             $font->size(18);
             $font->color('#fff');
         });
-        $img->text($args['description'], 40, 295, function($font){
+        $img->text($args['description3'], 40, 295, function($font){
             $font->file(storage_path('app/fonts/PixelMplus10-Bold.ttf'));
             $font->size(18);
             $font->color('#fff');
