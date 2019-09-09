@@ -693,3 +693,43 @@ https://teratail.com/questions/112442
 
 ▼ [Webフォント] Base64エンコードしてCSSに直接埋め込む
 https://www.cottpic.com/2018/10/embed-base64-encoded-fonts-in-css.html
+
+
+
+# ssl化対応
+
+
+▼初めてHerokuで独自ドメインを公開するあなたへ
+https://qiita.com/kenjikatooo/items/07c3d911210a4ca96781
+
+ここ見てやってたけどどうもアドオンを使わないといけないらしく上手くいかないため
+
+
+ホスト名： www.twimon.com	
+TYPE: CNAME	
+TTL： 3600 
+VALUE：tranquil-aptosaurus-5bsa5hmnouent780023yhwhh.herokudns.com
+
+をお名前.comに登録するとhttps://www.twimon.comは上手く行くようになった
+
+がルードドメインが上手くいかない・・・
+
+いろいろ調べて行くうちに無料でできる方法が！！
+
+▼【完全無料】Herokuで独自ドメイン + HTTPSに対応する【Rails】
+https://qiita.com/serinuntius/items/f7f08b2221f5ad068f5d
+
+Type: CNAME	
+Name： twimon.com	
+VALUE：https://twimon-frontend.herokuapp.com/
+TTL： 3600 
+
+を登録する。
+
+そのあとお名前.comにてプライマリとセカンダリネームサーバーを更新すると・・・
+
+https://twimon.com
+
+で飛べるように！！！！！！！
+
+

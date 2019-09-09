@@ -31,6 +31,7 @@ type User {
     hall_of_fame_flg: Boolean
     legend_flg: Boolean
     like_ct: Int
+    twitter_followers_count: Int
     created_at: DateTime!
     updated_at: DateTime!
     talks(orderBy: [OrderByClause!] @orderBy): [Talk!]! @hasMany

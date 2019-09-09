@@ -33,7 +33,8 @@ class User extends Authenticatable
         'sns_img_url',
         'ogp_img_url',
         'hall_of_fame_flg',
-        'legend_flg'
+        'legend_flg',
+        'twitter_followers_count'
     ];
 
     /**

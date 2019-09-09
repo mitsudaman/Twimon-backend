@@ -24,9 +24,10 @@ class UpdateUserProf
     {
         $user = auth()->guard('api')->user();
         $arr_prof = array_get($args,'input');
+        $twitterUser = Socialite::driver('twitter')->userFromTokenAndSecret(env('TWITTER_ACCESS_TOKEN'), env('TWITTER_ACCESS_TOKEN_SECRET'));
 
         // 画像生成
-        $ogp_url = $this->creageImage($arr_prof,$user);
+        $ogp_url = $this->creageImage($arr_prof,$user,$twitterUser);
         // $ogp_url = $this->createImageFromFront($arr_prof);
         
         // Userアップデート
@@ -41,17 +42,18 @@ class UpdateUserProf
             'description2' => $arr_prof['description2'],
             'description3' => $arr_prof['description3'],
             'ogp_img_url' => $ogp_url,
+            'sns_img_url' => str_replace_last('_normal','',str_replace_last('_normal', '', $twitterUser->getAvatar())),
+            'twitter_followers_count' => $twitterUser->user['followers_count']
         ];
 
         $user->update($data);
         return $user;
     }
 
-    public function creageImage(array $args,User $user)
+    public function creageImage(array $args,User $user,object $twitterUser)
     {
         $path = storage_path('app/images/ogp.png');
         $img = \Image::make($path);
-        $twitterUser = Socialite::driver('twitter')->userFromTokenAndSecret(env('TWITTER_ACCESS_TOKEN'), env('TWITTER_ACCESS_TOKEN_SECRET'));
 
         // 画像 ゾーン
         $path2 = str_replace_last('_normal','',str_replace_last('_normal', '', $twitterUser->getAvatar()));
@@ -136,11 +138,11 @@ class UpdateUserProf
         return "aaa";
 
         // S3保存用
-        Storage::disk('s3')->put('/uploads/ogp/test.png', $img->stream(), 'public');
-        $url = Storage::disk('s3')->url('uploads/ogp/test.png');
+        $image_name = (string) Str::uuid();
+        $path = Storage::disk('s3')->put('/uploads/ogp/'.$image_name.'.png', $img->stream(), 'public');
+        $url = Storage::disk('s3')->url('uploads/ogp/'.$image_name.'.png');
 
         return $url;
-        // $path = Storage::disk('s3')->put('/uploads/ogp/'.(string) Str::uuid().'.png', $img->stream(), 'public');
     }
 
     public function createImageFromFront(array $args){
@@ -157,6 +159,7 @@ class UpdateUserProf
         $url = Storage::disk('s3')->url('uploads/ogp/test2.png');
         return "aaa";
     }
+    
     public function calcProfFontSize(string $text){
         $strWidth = mb_strwidth($text);
         $fontSize=20;
