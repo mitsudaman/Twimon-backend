@@ -91,7 +91,7 @@ input UpdateTalksRelation {
 
 input CreateTalkInput {
     kind: String
-    sentence1: String!
+    sentence1: String
     sentence2: String
     sentence3: String
 }

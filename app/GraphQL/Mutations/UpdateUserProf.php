@@ -26,23 +26,22 @@ class UpdateUserProf
         $arr_prof = array_get($args,'input');
         $twitterUser = Socialite::driver('twitter')->userFromTokenAndSecret(env('TWITTER_ACCESS_TOKEN'), env('TWITTER_ACCESS_TOKEN_SECRET'));
 
-        // 画像生成
-        $ogp_url = $this->creageImage($arr_prof,$user,$twitterUser);
+        // SNS画像生成
+        $sns_url = $this->createSnsImage($user,$twitterUser);
+
+        // OGP画像生成
+        $ogp_url = $this->createOgpImage($arr_prof,$user,$twitterUser);
         // $ogp_url = $this->createImageFromFront($arr_prof);
         
         // Userアップデート
         $data = [
             'name' => $arr_prof['name'],
             'title' => $arr_prof['title'],
-            'feature1' => $arr_prof['feature1'],
-            'feature1_content' => $arr_prof['feature1_content'],
-            'feature2' => $arr_prof['feature2'],
-            'feature2_content' => $arr_prof['feature2_content'],
             'description1' => $arr_prof['description1'],
             'description2' => $arr_prof['description2'],
             'description3' => $arr_prof['description3'],
             'ogp_img_url' => $ogp_url,
-            'sns_img_url' => str_replace_last('_normal','',str_replace_last('_normal', '', $twitterUser->getAvatar())),
+            'sns_img_url' => $sns_url,
             'twitter_followers_count' => $twitterUser->user['followers_count']
         ];
 
@@ -50,12 +49,24 @@ class UpdateUserProf
         return $user;
     }
 
-    public function creageImage(array $args,User $user,object $twitterUser)
+    public function createSnsImage(User $user,object $twitterUser)
+    {
+        // ローカル保存用
+        $url = str_replace_last('_normal','',str_replace_last('_normal', '', $twitterUser->getAvatar()));
+        $img = \Image::make($url);
+        return $this->putImageToLocal('app/images/sns.png',$img);
+
+        // S3保存用
+        $savePath = 'uploads/avatar/'.$user->id.'.png';
+        return $this-> putImageToS3($savePath,$img);
+    }
+
+    public function createOgpImage(array $args,User $user,object $twitterUser)
     {
         $path = storage_path('app/images/ogp.png');
         $img = \Image::make($path);
 
-        // 画像 ゾーン
+        // アバター画像
         $path2 = str_replace_last('_normal','',str_replace_last('_normal', '', $twitterUser->getAvatar()));
         $img2 = \Image::make($path2);
         $img2->resize(150, 150);
@@ -110,12 +121,6 @@ class UpdateUserProf
         //     $font->color('#000');
         // });
 
-
-        // せつめい
-        // $text = $args['description'];
-
-        // $c = mb_strlen($text);
-
         $img->text($args['description1'], 40, 225, function($font){
             $font->file(storage_path('app/fonts/PixelMplus10-Bold.ttf'));
             $font->size(18);
@@ -133,16 +138,12 @@ class UpdateUserProf
         });
 
         // ローカル保存用
-        $save_path = storage_path('app/images/ogp2.png');
-        $img->save($save_path);
-        return "aaa";
+        return $this->putImageToLocal('app/images/ogp2.png',$img);
 
         // S3保存用
         $image_name = (string) Str::uuid();
-        $path = Storage::disk('s3')->put('/uploads/ogp/'.$image_name.'.png', $img->stream(), 'public');
-        $url = Storage::disk('s3')->url('uploads/ogp/'.$image_name.'.png');
-
-        return $url;
+        $savePath = 'uploads/ogp/'.$image_name.'.png';
+        return $this-> putImageToS3($savePath,$img);
     }
 
     public function createImageFromFront(array $args){
@@ -159,7 +160,7 @@ class UpdateUserProf
         $url = Storage::disk('s3')->url('uploads/ogp/test2.png');
         return "aaa";
     }
-    
+
     public function calcProfFontSize(string $text){
         $strWidth = mb_strwidth($text);
         $fontSize=20;
@@ -169,5 +170,17 @@ class UpdateUserProf
         else if($strWidth>30) $fontSize=17;
         else if($strWidth>27) $fontSize=18;
         return $fontSize;
+    }
+
+    public function putImageToLocal(string $url,object $img){
+        $save_path = storage_path($url);
+        $img->save($save_path);
+        return $save_path;
+    }
+
+    public function putImageToS3(string $url,object $img){
+        $path = Storage::disk('s3')->put($url, $img->stream(), 'public');
+        $url = Storage::disk('s3')->url($url);
+        return $url;
     }
 }
