@@ -31,21 +31,10 @@ class UpdateUserProf
 
         // OGP画像生成
         $ogp_url = $this->createOgpImage($arr_prof,$user,$twitterUser);
-        // $ogp_url = $this->createImageFromFront($arr_prof);
         
-        // Userアップデート
-        $data = [
-            'name' => $arr_prof['name'],
-            'title' => $arr_prof['title'],
-            'description1' => $arr_prof['description1'],
-            'description2' => $arr_prof['description2'],
-            'description3' => $arr_prof['description3'],
-            'ogp_img_url' => $ogp_url,
-            'sns_img_url' => $sns_url,
-            'twitter_followers_count' => $twitterUser->user['followers_count']
-        ];
+        // Userプロフアップデート
+        $user->updateUserProf($arr_prof,$twitterUser,$sns_url,$ogp_url);
 
-        $user->update($data);
         return $user;
     }
 

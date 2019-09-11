@@ -18,6 +18,7 @@ type User {
     id: ID!
     serial_number: Int!
     name: String!
+    nickname: String
     title: String
     feature1: String
     feature1_content: String
@@ -26,6 +27,16 @@ type User {
     description1: String
     description2: String
     description3: String
+    url1_name: String
+    url1: String
+    url2_name: String
+    url2: String
+    url3_name: String
+    url3: String
+    url4_name: String
+    url4: String
+    url5_name: String
+    url5: String
     sns_img_url: String
     ogp_img_url: String
     hall_of_fame_flg: Boolean
@@ -62,6 +73,7 @@ type Mutation {
     authenticateUserGql: AuthedUser
     addOrDeleteLikeUser(user_id:ID): Like @middleware(checks: ["auth:api"])
     updateUserProf(input: UpdateUserProfInput!): User @middleware(checks: ["auth:api"])
+    updateUserDetail(input: UpdateUserDetailInput!): User @middleware(checks: ["auth:api"])
     updateUserTalks(input: UpdateUserTalksInput! @spread): User @middleware(checks: ["auth:api"])
 }
 
@@ -77,6 +89,19 @@ input UpdateUserProfInput {
     description3: String
     sns_img_url: String
     ogp_img_url: String
+}
+
+input UpdateUserDetailInput {
+    url1_name: String
+    url1: String
+    url2_name: String
+    url2: String
+    url3_name: String
+    url3: String
+    url4_name: String
+    url4: String
+    url5_name: String
+    url5: String
 }
 
 input UpdateUserTalksInput {

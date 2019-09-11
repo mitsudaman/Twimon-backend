@@ -22,6 +22,7 @@ class User extends Authenticatable
         'serial_number', 
         'account_id', 
         'name', 
+        'nickname', 
         'title',
         'feature1',
         'feature1_content',
@@ -30,6 +31,16 @@ class User extends Authenticatable
         'description1',
         'description2',
         'description3',
+        'url1_name',
+        'url1',
+        'url2_name',
+        'url2',
+        'url3_name',
+        'url3',
+        'url4_name',
+        'url4',
+        'url5_name',
+        'url5',
         'sns_img_url',
         'ogp_img_url',
         'hall_of_fame_flg',
@@ -54,6 +65,45 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function updateUserProf(array $arr_user_prof,object $twitterUser,String $sns_url,String $ogp_url)
+    {
+        // Userプロフアップデート
+        $data = [
+            'name' => $arr_user_prof['name'],
+            'nickname' => $twitterUser->getNickname(),
+            'title' => $arr_user_prof['title'],
+            'description1' => $arr_user_prof['description1'],
+            'description2' => $arr_user_prof['description2'],
+            'description3' => $arr_user_prof['description3'],
+            'sns_img_url' => $sns_url,
+            'ogp_img_url' => $ogp_url,
+            'twitter_followers_count' => $twitterUser->user['followers_count']
+        ];
+
+        $this->fill($data)->save();
+        return ;
+    }
+
+    public function updateUserDetail(array $arr_user_detail)
+    {
+        // User詳細アップデート
+        $data = [
+            'url1_name' => $arr_user_detail['url1_name'],
+            'url1' => $arr_user_detail['url1'],
+            'url2_name' => $arr_user_detail['url2_name'],
+            'url2' => $arr_user_detail['url2'],
+            'url3_name' => $arr_user_detail['url3_name'],
+            'url3' => $arr_user_detail['url3'],
+            'url4_name' => $arr_user_detail['url4_name'],
+            'url4' => $arr_user_detail['url4'],
+            'url5_name' => $arr_user_detail['url5_name'],
+            'url5' => $arr_user_detail['url5'],
+        ];
+
+        $this->fill($data)->save();
+        return ;
+    }
 
     public function talks():HasMany
     {

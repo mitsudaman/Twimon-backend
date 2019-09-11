@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->bigInteger('serial_number');
             $table->string('account_id');
             $table->string('name');
+            $table->string('nickname');
             $table->string('title')->nullable();
             $table->string('type')->nullable();
             $table->string('feature1')->nullable();
@@ -27,6 +28,16 @@ class CreateUsersTable extends Migration
             $table->string('description1')->nullable();
             $table->string('description2')->nullable();
             $table->string('description3')->nullable();
+            $table->string('url1_name')->nullable();
+            $table->string('url1')->nullable();
+            $table->string('url2_name')->nullable();
+            $table->string('url2')->nullable();
+            $table->string('url3_name')->nullable();
+            $table->string('url3')->nullable();
+            $table->string('url4_name')->nullable();
+            $table->string('url4')->nullable();
+            $table->string('url5_name')->nullable();
+            $table->string('url5')->nullable();
             $table->string('sns_img_url')->nullable();
             $table->string('ogp_img_url')->nullable();
             $table->boolean('hall_of_fame_flg')->default(0);

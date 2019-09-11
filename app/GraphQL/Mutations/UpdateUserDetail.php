@@ -2,13 +2,14 @@
 
 namespace App\GraphQL\Mutations;
 
+use App\User;
 use GraphQL\Type\Definition\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 use Laravel\Socialite\Facades\Socialite;
-use App\User;
-use DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
-class AuthenticateUserGql
+class UpdateUserDetail
 {
     /**
      * Return a value for the field.
@@ -21,21 +22,12 @@ class AuthenticateUserGql
      */
     public function resolve($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
-        $twitterUser = Socialite::driver('twitter')->userFromTokenAndSecret(env('TWITTER_ACCESS_TOKEN'), env('TWITTER_ACCESS_TOKEN_SECRET'));
+        $user = auth()->guard('api')->user();
+        $arr_user_detail = array_get($args,'input');
+        
+        // User詳細アップデート
+        $user->updateUserDetail($arr_user_detail);
 
-        $user = User::firstOrCreate([
-            'account_id' => $twitterUser->getId(),
-        ],[
-            'serial_number' => DB::table('users')->max('serial_number')+1,
-            'name' => $twitterUser->getName(),
-            'nickname' => $twitterUser->getNickname(),
-            'sns_img_url' => str_replace_last('_normal', '', $twitterUser->getAvatar()),
-            'twitter_followers_count' => $twitterUser->user['followers_count'],
-        ]);
-
-        return [
-            'access_token' => $user->createToken('twimonToken')->accessToken,
-            'me' => $user
-        ];
+        return $user;
     }
 }
