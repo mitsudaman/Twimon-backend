@@ -92,15 +92,10 @@ input UpdateUserProfInput {
 }
 
 input UpdateUserDetailInput {
-    url1_name: String
     url1: String
-    url2_name: String
     url2: String
-    url3_name: String
     url3: String
-    url4_name: String
     url4: String
-    url5_name: String
     url5: String
 }
 
