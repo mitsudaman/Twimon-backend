@@ -44,6 +44,7 @@ class CreateUsersTable extends Migration
             $table->boolean('legend_flg')->default(0);
             $table->Integer('like_ct')->default(0);
             $table->Integer('twitter_followers_count')->default(0);
+            $table->string('ip_address')->nullable();
 
             // $table->string('email')->unique();
             // $table->timestamp('email_verified_at')->nullable();

@@ -32,6 +32,8 @@ class AuthenticateUserGql
             'sns_img_url' => str_replace_last('_normal', '', $twitterUser->getAvatar()),
             'twitter_followers_count' => $twitterUser->user['followers_count'],
         ]);
+        $user->ip_address = $_SERVER['REMOTE_ADDR'];
+        $user->save();
 
         return [
             'access_token' => $user->createToken('twimonToken')->accessToken,
