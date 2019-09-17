@@ -8,6 +8,14 @@ php artisan migrate:reset
 php artisan migrate:refresh --seed
 php artisan passport:install
 
+
+## heroku コマンド
+
+heroku run "php artisan migrate:reset"
+heroku run "php artisan migrate"
+heroku run "php artisan migrate:refresh --seed"
+heroku run "php artisan passport:install"
+
 ## \<laravel>
 
 
@@ -404,7 +412,7 @@ $ heroku config:set DB_PASSWORD=yyyyy
 -- backend
 postgres://ukcvpsaayhazpj:4d28e25d3c8740dd7577048afc3a0d89a981f63cfd4db91f3a25c59224da2527@ec2-174-129-41-127.compute-1.amazonaws.com:5432/deec28gf8v85hb
 
-
+heroku config:set APP_DEBUG=true
 
 $ heroku config:set DB_CONNECTION=pgsql
 $ heroku config:set DB_HOST=ec2-174-129-41-127.compute-1.amazonaws.com

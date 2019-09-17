@@ -41,9 +41,9 @@ class UpdateUserProf
     public function createSnsImage(User $user,object $twitterUser)
     {
         // ローカル保存用
-        $url = str_replace_last('_normal','',str_replace_last('_normal', '', $twitterUser->getAvatar()));
-        $img = \Image::make($url);
-        return $this->putImageToLocal('app/images/sns.png',$img);
+        // $url = str_replace_last('_normal','',str_replace_last('_normal', '', $twitterUser->getAvatar()));
+        // $img = \Image::make($url);
+        // return $this->putImageToLocal('app/images/sns.png',$img);
 
         // S3保存用
         $savePath = 'uploads/avatar/'.$user->id.'.png';
@@ -130,8 +130,10 @@ class UpdateUserProf
         // return $this->putImageToLocal('app/images/ogp2.png',$img);
 
         // S3保存用
-        $image_name = (string) Str::uuid();
-        $savePath = 'uploads/ogp/'.$image_name.'.png';
+        $image_name = '';
+        if($user->ogp_img_url) $image_name = $user->ogp_img_url;
+        else $image_name = ((string) Str::uuid()).'.png';
+        $savePath = 'uploads/ogp/'.$image_name;
         return $this-> putImageToS3($savePath,$img);
     }
 
