@@ -11,10 +11,10 @@
         <meta name="twitter:site" content="@mitudama">
         <meta name="twitter:card" content="summary_large_image">
         <meta name="twitter:title" content="ツイットモンスター">
-        <meta name="twitter:image" content="https://twimon.s3-ap-northeast-1.amazonaws.com/uploads/ogp/test.png">
+        <meta name="twitter:image" content="{{$img}}">
         <meta name="twitter:description" content="ツイットモンスター">
     </head>
     <body>
-        <!-- <script type="text/javascript">window.location="https://twimon.com/read/${id}";</script> -->
+        <script type="text/javascript">window.location="https://twimon.com/read/${id}";</script>
     </body>
 </html>
