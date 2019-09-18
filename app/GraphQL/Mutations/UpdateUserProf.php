@@ -42,7 +42,7 @@ class UpdateUserProf
     {
         $url = str_replace_last('_normal','',str_replace_last('_normal', '', $twitterUser->getAvatar()));
         $img = \Image::make($url);
-        
+
         // ローカル保存用
         // return $this->putImageToLocal('app/images/sns.png',$img);
 
@@ -132,7 +132,7 @@ class UpdateUserProf
 
         // S3保存用
         $image_name = '';
-        if($user->ogp_img_url) $image_name = $user->ogp_img_url;
+        if($user->ogp_img_url) $image_name = explode("uploads/ogp/",$user->ogp_img_url)[1];
         else $image_name = ((string) Str::uuid()).'.png';
         $savePath = 'uploads/ogp/'.$image_name;
         return $this-> putImageToS3($savePath,$img);
