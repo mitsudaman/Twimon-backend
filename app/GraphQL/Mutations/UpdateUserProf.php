@@ -40,9 +40,10 @@ class UpdateUserProf
 
     public function createSnsImage(User $user,object $twitterUser)
     {
+        $url = str_replace_last('_normal','',str_replace_last('_normal', '', $twitterUser->getAvatar()));
+        $img = \Image::make($url);
+        
         // ローカル保存用
-        // $url = str_replace_last('_normal','',str_replace_last('_normal', '', $twitterUser->getAvatar()));
-        // $img = \Image::make($url);
         // return $this->putImageToLocal('app/images/sns.png',$img);
 
         // S3保存用
