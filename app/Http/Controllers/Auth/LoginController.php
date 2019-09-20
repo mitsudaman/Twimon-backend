@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Laravel\Socialite\Facades\Socialite;
+use App\User;
+use DB;
 
 class LoginController extends Controller
 {
@@ -35,5 +38,31 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function redirectToProvider()
+    {
+        return Socialite::driver('twitter')->redirect()->getTargetUrl();
+    }
+
+    public function handleProviderCallback()
+    {
+        $twitterUser = Socialite::driver('twitter')->user();
+        $user = User::firstOrCreate([
+            'account_id' => $twitterUser->getId(),
+        ],[
+            'serial_number' => DB::table('users')->max('serial_number')+1,
+            'name' => $twitterUser->getName(),
+            'nickname' => $twitterUser->getNickname(),
+            'sns_img_url' => str_replace_last('_normal', '', $twitterUser->getAvatar()),
+            'twitter_followers_count' => $twitterUser->user['followers_count'],
+        ]);
+        $user->ip_address = $_SERVER['REMOTE_ADDR'];
+        $user->save();
+
+        return [
+            'access_token' => $user->createToken('twimonToken')->accessToken,
+            'me' => $user
+        ];
     }
 }
