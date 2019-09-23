@@ -91,15 +91,31 @@ class User extends Authenticatable
         $data = [
             'url1_name' => $this->get_info_by_curl($arr_user_detail['url1'])[0],
             'url1' => $arr_user_detail['url1'],
-            'url2_name' => $this->get_info_by_curl($arr_user_detail['url2'])[0],
-            'url2' => $arr_user_detail['url2'],
-            'url3_name' => $this->get_info_by_curl($arr_user_detail['url3'])[0],
-            'url3' => $arr_user_detail['url3'],
-            'url4_name' => $this->get_info_by_curl($arr_user_detail['url4'])[0],
-            'url4' => $arr_user_detail['url4'],
-            'url5_name' => $this->get_info_by_curl($arr_user_detail['url5'])[0],
-            'url5' => $arr_user_detail['url5'],
+            // 'url3_name' => $this->get_info_by_curl($arr_user_detail['url3'])[0],
+            // 'url3' => $arr_user_detail['url3'],
+            // 'url4_name' => $this->get_info_by_curl($arr_user_detail['url4'])[0],
+            // 'url4' => $arr_user_detail['url4'],
+            // 'url5_name' => $this->get_info_by_curl($arr_user_detail['url5'])[0],
+            // 'url5' => $arr_user_detail['url5'],
         ];
+
+        // if($arr_user_detail['url2']){
+        //     $data['url2_name'] = $this->get_info_by_curl($arr_user_detail['url2'])[0];
+        //     $data['url2'] = $arr_user_detail['url2'];
+        // }
+        // if(array_key_exists('url3',$arr_user_detail)){
+        //     $data['url3_name'] = $this->get_info_by_curl($arr_user_detail['url3'])[0];
+        //     $data['url3'] = $arr_user_detail['url3'];
+        // }
+        // if(array_key_exists('url4',$arr_user_detail)){
+        //     $data['url4_name'] = $this->get_info_by_curl($arr_user_detail['url4'])[0];
+        //     $data['url4'] = $arr_user_detail['url4'];
+        // }
+        // if(array_key_exists('url5',$arr_user_detail)){
+        //     $data['url5_name'] = $this->get_info_by_curl($arr_user_detail['url5'])[0];
+        //     $data['url5'] = $arr_user_detail['url5'];
+        // }
+
 
         $this->fill($data)->save();
         return;
