@@ -1,8 +1,15 @@
 #
 ##コマンド
 docker-compose up -d nginx postgres nuxt
-docker-compose up nginx postgres
 
+cd ../laradock/
+docker-compose up nginx postgres
+docker-compose exec workspace bash
+
+
+cd ../laradock/
+docker-compose up -d nuxt
+docker-compose exec nuxt sh
 
 php artisan migrate:reset
 php artisan migrate:refresh --seed
