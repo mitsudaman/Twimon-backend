@@ -84,12 +84,14 @@ class UpdateUserProf
             $font->size($fontSize);
             $font->color('#000');
         });
-        $fontSize=$this->calcProfFontSize($args['title']);
-        $img->text($args['title'], $prof_x_point, $prof_y_point + 72, function($font) use ($fontSize){
-            $font->file(storage_path('app/fonts/PixelMplus10-Regular.ttf'));
-            $font->size($fontSize);
-            $font->color('#000');
-        });
+        if($args['title']){
+            $fontSize=$this->calcProfFontSize($args['title']);
+            $img->text($args['title'], $prof_x_point, $prof_y_point + 72, function($font) use ($fontSize){
+                $font->file(storage_path('app/fonts/PixelMplus10-Regular.ttf'));
+                $font->size($fontSize);
+                $font->color('#000');
+            });
+        }
         $img->text("戦闘力", $prof_x_point, $prof_y_point + 108, function($font){
             $font->file(storage_path('app/fonts/PixelMplus10-Regular.ttf'));
             $font->size(20);
