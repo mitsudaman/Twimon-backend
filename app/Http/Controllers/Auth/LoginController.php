@@ -54,6 +54,8 @@ class LoginController extends Controller
             'serial_number' => DB::table('users')->max('serial_number')+1,
             'name' => $twitterUser->getName(),
             'nickname' => $twitterUser->getNickname(),
+            'twitter_token' => $twitterUser->token,
+            'twitter_token_secret' => $twitterUser->tokenSecret,
             'sns_img_url' => str_replace_last('_normal', '', $twitterUser->getAvatar()),
             'twitter_followers_count' => $twitterUser->user['followers_count'],
             'description1' => '？？？？？？？？？？？？？？？？？？？？？',

@@ -24,7 +24,7 @@ class UpdateUserProf
     {
         $user = auth()->guard('api')->user();
         $arr_prof = array_get($args,'input');
-        $twitterUser = Socialite::driver('twitter')->userFromTokenAndSecret(env('TWITTER_ACCESS_TOKEN'), env('TWITTER_ACCESS_TOKEN_SECRET'));
+        $twitterUser = Socialite::driver('twitter')->userFromTokenAndSecret($user->twitter_token, $user->twitter_token_secret);
 
         // SNS画像生成
         $sns_url = $this->createSnsImage($user,$twitterUser);

@@ -22,6 +22,7 @@ heroku run "php artisan migrate:reset"
 heroku run "php artisan migrate"
 heroku run "php artisan migrate:refresh --seed"
 heroku run "php artisan passport:install"
+git push heroku master
 
 ## \<laravel>
 

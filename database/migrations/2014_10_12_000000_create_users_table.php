@@ -19,6 +19,8 @@ class CreateUsersTable extends Migration
             $table->string('account_id');
             $table->string('name');
             $table->string('nickname');
+            $table->string('twitter_token')->nullable();
+            $table->string('twitter_token_secret')->nullable();
             $table->string('title')->nullable();
             $table->string('type')->nullable();
             $table->string('feature1')->nullable();
@@ -46,11 +48,6 @@ class CreateUsersTable extends Migration
             $table->Integer('twitter_followers_count')->default(0);
             $table->string('ip_address')->nullable();
 
-            // $table->string('email')->unique();
-            // $table->timestamp('email_verified_at')->nullable();
-            // $table->string('password');
-            // $table->string('provider');
-            // $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
         });
