@@ -14,7 +14,7 @@ class OGPController extends Controller
         $twitterUser = Socialite::driver('twitter')->userFromTokenAndSecret(env('TWITTER_ACCESS_TOKEN'), env('TWITTER_ACCESS_TOKEN_SECRET'));
         // print_r($twitterUser->user['followers_count']);
         $user = User::find($id);
-        return view('ogp/index', ['id' => $id, 'img' => $user->ogp_img_url]);
+        return view('ogp/index', ['user' => $user]);
     }
 
      /**
