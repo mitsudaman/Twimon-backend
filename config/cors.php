@@ -13,7 +13,10 @@ return [
     */
    
     'supportsCredentials' => true,
-    'allowedOrigins' => ['*'],
+    'allowedOrigins' => [
+        // '*'
+        env('NUXT_URL', 'https://twimon.com')
+    ],
     'allowedOriginsPatterns' => [],
     'allowedHeaders' => ['*'],
     'allowedMethods' => ['*'],
