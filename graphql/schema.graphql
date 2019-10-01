@@ -8,10 +8,21 @@ scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 scalar Upload @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Upload")
 
 type Query {
-    getRedirectUrl: String!
     me: User @middleware(checks: ["auth:api"]) @auth
     user(id: ID @eq,name: String @eq): User @find(model: "App\\User")
     users(orderBy: [OrderByClause!] @orderBy): [User!]! @paginate
+    getRedirectUrl: String!
+    getLikeUsers(perPage: Int!, page: Int!): CustomUserPaginator @middleware(checks: ["auth:api"])
+}
+
+type CustomUserPaginator {
+    likeUsers: [User!]!
+    paginatorInfo: PaginatorInfo!
+}
+
+type PaginatorInfo {
+    currentPage: Int!
+    lastPage: Int!
 }
 
 type User {
@@ -60,7 +71,7 @@ type Talk{
 type Like{
     id: ID
     user_id: ID
-    liked_user_id: ID
+    like_user_id: ID
     user:User
 }
 
@@ -71,7 +82,7 @@ type AuthedUser {
 
 type Mutation {
     authenticateUserGql: AuthedUser
-    addOrDeleteLikeUser(user_id:ID): Like @middleware(checks: ["auth:api"])
+    addOrDeleteLikeUser(like_user_id:ID): Like @middleware(checks: ["auth:api"])
     updateUserProf(input: UpdateUserProfInput!): User @middleware(checks: ["auth:api"])
     updateUserDetail(input: UpdateUserDetailInput!): User @middleware(checks: ["auth:api"])
     updateUserTalks(input: UpdateUserTalksInput! @spread): User @middleware(checks: ["auth:api"])
