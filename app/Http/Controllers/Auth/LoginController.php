@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Http\Request;
 use App\User;
 use DB;
 
@@ -40,13 +41,25 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function redirectToProvider()
+    public function redirectToProvider(Request $request)
     {
+        $value = $request->cookie('laravel_session');
+        error_log("-----------------login----------------------");
+        error_log($value);
         return Socialite::driver('twitter')->redirect()->getTargetUrl();
     }
 
-    public function handleProviderCallback()
+    public function handleProviderCallback(Request $request)
     {
+        // $value = $request->cookie('laravel_session');
+        $hasNecessaryVerifier = $request->has('oauth_token') && $request->has('oauth_verifier');
+        error_log("-----------------hasNecessaryVerifier----------------------");
+        error_log($hasNecessaryVerifier);
+
+        $temp = $request->session()->get('oauth.temp');
+        error_log("-----------------temp----------------------");
+        error_log(print_r($temp, true));
+        
         $twitterUser = Socialite::driver('twitter')->user();
         $user = User::firstOrCreate([
             'account_id' => $twitterUser->getId(),
