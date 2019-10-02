@@ -46,7 +46,13 @@ class LoginController extends Controller
         $value = $request->cookie('laravel_session');
         error_log("-----------------login----------------------");
         error_log($value);
-        return Socialite::driver('twitter')->redirect()->getTargetUrl();
+
+        $url = Socialite::driver('twitter')->redirect()->getTargetUrl();
+        $temp = $request->session()->get('oauth.temp');
+        error_log("-----------------oauth.temp----------------------");
+        error_log(print_r($temp, true));
+
+        return $url;
     }
 
     public function handleProviderCallback(Request $request)
