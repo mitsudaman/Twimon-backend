@@ -44,9 +44,9 @@ class LoginController extends Controller
     public function redirectToProvider(Request $request)
     {
         error_log("=========================== login ===========================");
-        $value = $request->cookie('laravel_session');
-        error_log("-----------------cookie: laravel_session----------------------");
-        error_log($value);
+        // $value = $request->cookie('laravel_session');
+        // error_log("-----------------cookie: laravel_session----------------------");
+        // error_log($value);
 
         $url = Socialite::driver('twitter')->redirect()->getTargetUrl();
         $temp = $request->session()->get('oauth.temp');
@@ -59,9 +59,9 @@ class LoginController extends Controller
     public function handleProviderCallback(Request $request)
     {
         error_log("=========================== callback ===========================");
-        $value = $request->cookie('laravel_session');
-        error_log("-----------------cookie: laravel_session----------------------");
-        error_log($value);
+        // $value = $request->cookie('laravel_session');
+        // error_log("-----------------cookie: laravel_session----------------------");
+        // error_log($value);
 
         $temp = $request->session()->get('oauth.temp');
         error_log("-----------------session: oauth.temp----------------------");
