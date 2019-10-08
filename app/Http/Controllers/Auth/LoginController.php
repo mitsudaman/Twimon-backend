@@ -43,13 +43,14 @@ class LoginController extends Controller
 
     public function redirectToProvider(Request $request)
     {
+        error_log("=========================== login ===========================");
         $value = $request->cookie('laravel_session');
-        error_log("-----------------login----------------------");
+        error_log("-----------------cookie: laravel_session----------------------");
         error_log($value);
 
         $url = Socialite::driver('twitter')->redirect()->getTargetUrl();
         $temp = $request->session()->get('oauth.temp');
-        error_log("-----------------oauth.temp----------------------");
+        error_log("-----------------session: oauth.temp----------------------");
         error_log(print_r($temp, true));
 
         return $url;
@@ -57,13 +58,13 @@ class LoginController extends Controller
 
     public function handleProviderCallback(Request $request)
     {
-        // $value = $request->cookie('laravel_session');
-        $hasNecessaryVerifier = $request->has('oauth_token') && $request->has('oauth_verifier');
-        error_log("-----------------hasNecessaryVerifier----------------------");
-        error_log($hasNecessaryVerifier);
+        error_log("=========================== callback ===========================");
+        $value = $request->cookie('laravel_session');
+        error_log("-----------------cookie: laravel_session----------------------");
+        error_log($value);
 
         $temp = $request->session()->get('oauth.temp');
-        error_log("-----------------temp----------------------");
+        error_log("-----------------session: oauth.temp----------------------");
         error_log(print_r($temp, true));
         
         $twitterUser = Socialite::driver('twitter')->user();
