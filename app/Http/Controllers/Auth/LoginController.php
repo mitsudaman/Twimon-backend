@@ -53,19 +53,24 @@ class LoginController extends Controller
         error_log("-----------------session: oauth.temp----------------------");
         error_log(print_r($temp, true));
 
+        error_log("-----------------session: all----------------------");
+        $data = session()->all();
+        error_log(print_r($data, true));
+
         return $url;
     }
 
     public function handleProviderCallback(Request $request)
     {
         error_log("=========================== callback ===========================");
-        // $value = $request->cookie('laravel_session');
-        // error_log("-----------------cookie: laravel_session----------------------");
-        // error_log($value);
 
         $temp = $request->session()->get('oauth.temp');
         error_log("-----------------session: oauth.temp----------------------");
         error_log(print_r($temp, true));
+
+        error_log("-----------------session: all----------------------");
+        $data = session()->all();
+        error_log(print_r($data, true));
         
         $twitterUser = Socialite::driver('twitter')->user();
         $user = User::firstOrCreate([
