@@ -77,6 +77,8 @@ class LoginController extends Controller
         error_log(print_r($data, true));
         
         $twitterUser = Socialite::driver('twitter')->user();
+        error_log("-----------------twitterUser----------------------");
+        error_log(print_r($twitterUser, true));
         $user = User::firstOrCreate([
             'account_id' => $twitterUser->getId(),
         ],[

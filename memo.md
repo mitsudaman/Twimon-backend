@@ -27,6 +27,9 @@ git push heroku master
 再起動
  heroku restart
 
+ heroku内に入る(作ったファイル出たら消えるパターン)
+ heroku run bash
+ 
 ## \<laravel>
 
 
