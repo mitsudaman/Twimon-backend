@@ -62,6 +62,21 @@ class LoginController extends Controller
 
     public function handleProviderCallback(Request $request)
     {
+
+        try {
+            return response()->json($this->getCredentialsByTwitter($request));
+        } catch (InvalidArgumentException $e) {
+            return $this->errorJsonResponse('Twitterでの認証に失敗しました。');
+        } catch (EmailAlreadyExistsException $e) {
+            return $this->errorJsonResponse(
+                "{$e->getEmail()} は既に使用されているEメールアドレスです。"
+            );
+        }
+
+    }
+
+    protected function getCredentialsByTwitter(Request $request): array
+    {
         error_log("=========================== callback ===========================");
        
         $value = $request->cookie('laravel_session');
