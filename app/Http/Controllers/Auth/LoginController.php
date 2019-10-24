@@ -8,6 +8,7 @@ use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Http\Request;
 use App\User;
 use DB;
+use Illuminate\Http\JsonResponse;
 
 class LoginController extends Controller
 {
@@ -41,7 +42,7 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function redirectToProvider(Request $request)
+    public function redirectToProvider(Request $request): JsonResponse
     {
         error_log("=========================== login ===========================");
         $value = $request->cookie('laravel_session');
@@ -57,10 +58,12 @@ class LoginController extends Controller
         $data = session()->all();
         error_log(print_r($data, true));
 
-        return $url;
+        return response()->json([
+            'redirect_url' => $url,
+        ]);
     }
 
-    public function handleProviderCallback(Request $request)
+    public function handleProviderCallback(Request $request): JsonResponse
     {
 
         try {
