@@ -42,7 +42,7 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function redirectToProvider(Request $request): JsonResponse
+    public function redirectToProvider(Request $request)
     {
         error_log("=========================== login ===========================");
         $value = $request->cookie('laravel_session');
@@ -58,28 +58,28 @@ class LoginController extends Controller
         $data = session()->all();
         error_log(print_r($data, true));
 
-        return response()->json([
+        return [
             'redirect_url' => $url,
-        ]);
+        ];
     }
 
-    public function handleProviderCallback(Request $request): JsonResponse
+    public function handleProviderCallback(Request $request)
     {
 
-        try {
-            return response()->json($this->getCredentialsByTwitter($request));
-        } catch (InvalidArgumentException $e) {
-            return $this->errorJsonResponse('Twitterでの認証に失敗しました。');
-        } catch (EmailAlreadyExistsException $e) {
-            return $this->errorJsonResponse(
-                "{$e->getEmail()} は既に使用されているEメールアドレスです。"
-            );
-        }
+    //     try {
+    //         return response()->json($this->getCredentialsByTwitter($request));
+    //     } catch (InvalidArgumentException $e) {
+    //         return $this->errorJsonResponse('Twitterでの認証に失敗しました。');
+    //     } catch (EmailAlreadyExistsException $e) {
+    //         return $this->errorJsonResponse(
+    //             "{$e->getEmail()} は既に使用されているEメールアドレスです。"
+    //         );
+    //     }
 
-    }
+    // }
 
-    protected function getCredentialsByTwitter(Request $request): array
-    {
+    // protected function getCredentialsByTwitter(Request $request): array
+    // {
         error_log("=========================== callback ===========================");
        
         $value = $request->cookie('laravel_session');
