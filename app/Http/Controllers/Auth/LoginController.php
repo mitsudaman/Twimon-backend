@@ -44,59 +44,29 @@ class LoginController extends Controller
 
     public function redirectToProvider(Request $request): JsonResponse
     {
-        error_log("=========================== login ===========================");
-        $value = $request->cookie('laravel_session');
-        error_log("-----------------cookie: laravel_session----------------------");
-        error_log($value);
-
         $url = Socialite::driver('twitter')->redirect()->getTargetUrl();
-        $temp = $request->session()->get('oauth.temp');
-        error_log("-----------------session: oauth.temp----------------------");
-        error_log(print_r($temp, true));
-
-        error_log("-----------------session: all----------------------");
-        $data = session()->all();
-        error_log(print_r($data, true));
-
         return response()->json([
             'redirect_url' => $url,
         ]);
     }
 
-    public function handleProviderCallback(Request $request): JsonResponse
+    // public function handleProviderCallback(Request $request): JsonResponse
+    public function handleProviderCallback(Request $request)
     {
+    //     try {
+    //         return response()->json($this->getCredentialsByTwitter($request));
+    //     } catch (InvalidArgumentException $e) {
+    //         return $this->errorJsonResponse('Twitterでの認証に失敗しました。');
+    //     } catch (EmailAlreadyExistsException $e) {
+    //         return $this->errorJsonResponse(
+    //             "{$e->getEmail()} は既に使用されているEメールアドレスです。"
+    //         );
+    //     }
+    // }
 
-        try {
-            return response()->json($this->getCredentialsByTwitter($request));
-        } catch (InvalidArgumentException $e) {
-            return $this->errorJsonResponse('Twitterでの認証に失敗しました。');
-        } catch (EmailAlreadyExistsException $e) {
-            return $this->errorJsonResponse(
-                "{$e->getEmail()} は既に使用されているEメールアドレスです。"
-            );
-        }
-
-    }
-
-    protected function getCredentialsByTwitter(Request $request): array
-    {
-        error_log("=========================== callback ===========================");
-       
-        $value = $request->cookie('laravel_session');
-        error_log("-----------------cookie: laravel_session----------------------");
-        error_log($value);
-
-        $temp = $request->session()->get('oauth.temp');
-        error_log("-----------------session: oauth.temp----------------------");
-        error_log(print_r($temp, true));
-
-        error_log("-----------------session: all----------------------");
-        $data = session()->all();
-        error_log(print_r($data, true));
-        
+    // protected function getCredentialsByTwitter(Request $request): array
+    // {
         $twitterUser = Socialite::driver('twitter')->user();
-        // error_log("-----------------twitterUser----------------------");
-        // error_log(print_r($twitterUser, true));
         $user = User::firstOrCreate([
             'account_id' => $twitterUser->getId(),
         ],[
