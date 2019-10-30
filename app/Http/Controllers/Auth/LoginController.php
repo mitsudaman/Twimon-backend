@@ -42,12 +42,16 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    public function redirectToProvider(Request $request): JsonResponse
+    // public function redirectToProvider(Request $request): JsonResponse
+    public function redirectToProvider(Request $request)
     {
         $url = Socialite::driver('twitter')->redirect()->getTargetUrl();
-        return response()->json([
+        // return response()->json([
+        //     'redirect_url' => $url,
+        // ]);
+        return [
             'redirect_url' => $url,
-        ]);
+        ];
     }
 
     // public function handleProviderCallback(Request $request): JsonResponse
