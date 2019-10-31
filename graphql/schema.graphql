@@ -57,7 +57,7 @@ type User {
     created_at: DateTime!
     updated_at: DateTime!
     talks(orderBy: [OrderByClause!] @orderBy): [Talk!]! @hasMany
-    likes: [Like!]! @paginate @middleware(checks: ["auth:api"])
+    likes: [Like!]! @middleware(checks: ["auth:api"])
     liked: Boolean
 }
 

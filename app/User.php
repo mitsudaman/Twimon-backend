@@ -113,9 +113,12 @@ class User extends Authenticatable
         return $this->hasMany('App\Talk');
     }
 
+   /**
+    * スキしてくれた人リスト 
+    */
     public function likes(): HasMany
     {
-        return $this->hasMany('App\Like');
+        return $this->hasMany('App\Like','like_user_id');
     }
     protected $appends = ['liked'];
 
@@ -126,7 +129,7 @@ class User extends Authenticatable
             return false;
         }
         $collection = collect($this->likes);
-        return $collection->where('like_user_id', $current_user->id)->isNotEmpty();
+        return $collection->where('user_id', $current_user->id)->isNotEmpty();
     }
 
     public function get_info_by_curl(?String $url){

@@ -21,7 +21,7 @@ class AddOrDeleteLikeUser
     public function resolve($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
         $like_user = User::find($args['like_user_id']);
-        $like = \Auth::user()->likes()->where('like_user_id',$args['like_user_id'])->first();
+        $like = $like_user->likes()->where('user_id',\Auth::user()->id)->first();
         
         if(empty($like)){
             $like = Like::create([
