@@ -42,34 +42,16 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    // public function redirectToProvider(Request $request): JsonResponse
     public function redirectToProvider(Request $request)
     {
         $url = Socialite::driver('twitter')->redirect()->getTargetUrl();
-        // return response()->json([
-        //     'redirect_url' => $url,
-        // ]);
         return [
             'redirect_url' => $url,
         ];
     }
 
-    // public function handleProviderCallback(Request $request): JsonResponse
     public function handleProviderCallback(Request $request)
     {
-    //     try {
-    //         return response()->json($this->getCredentialsByTwitter($request));
-    //     } catch (InvalidArgumentException $e) {
-    //         return $this->errorJsonResponse('Twitterでの認証に失敗しました。');
-    //     } catch (EmailAlreadyExistsException $e) {
-    //         return $this->errorJsonResponse(
-    //             "{$e->getEmail()} は既に使用されているEメールアドレスです。"
-    //         );
-    //     }
-    // }
-
-    // protected function getCredentialsByTwitter(Request $request): array
-    // {
         $twitterUser = Socialite::driver('twitter')->user();
         $user = User::firstOrCreate([
             'account_id' => $twitterUser->getId(),
@@ -79,6 +61,7 @@ class LoginController extends Controller
             'nickname' => $twitterUser->getNickname(),
             'twitter_token' => $twitterUser->token,
             'twitter_token_secret' => $twitterUser->tokenSecret,
+            'title' => '？？？？？？？？',
             'sns_img_url' => str_replace_last('_normal', '', $twitterUser->getAvatar()),
             'twitter_followers_count' => $twitterUser->user['followers_count'],
             'description1' => '？？？？？？？？？？？？？？？？？？？？？',
@@ -88,6 +71,7 @@ class LoginController extends Controller
         $user->ip_address = $_SERVER['REMOTE_ADDR'];
         $user->save();
 
+        // 初回ログイン&生成時
         if($user->wasRecentlyCreated){
             $items = [
                 ['sentence1'=> 'こんにちわ'.$twitterUser->getName().'です。',
@@ -96,6 +80,20 @@ class LoginController extends Controller
             ];
               
             $user->talks()->createMany($items);
+
+            $arr_prof = [
+                'name' => $user->name,
+                'title' => $user->title,
+                'description1' => $user->description1,
+                'description2' => $user->description2,
+                'description3' => $user->description3
+            ];
+
+            // SNS画像生成
+            $sns_url = $user->createSnsImage($twitterUser);
+
+            // OGP画像生成
+            $ogp_url = $user->createOgpImage($arr_prof,$user,$twitterUser);
         }
         return [
             'access_token' => $user->createToken('twimonToken')->accessToken,
