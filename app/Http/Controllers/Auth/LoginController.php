@@ -62,7 +62,6 @@ class LoginController extends Controller
             'twitter_token' => $twitterUser->token,
             'twitter_token_secret' => $twitterUser->tokenSecret,
             'title' => '？？？？？？？？',
-            'sns_img_url' => str_replace_last('_normal', '', $twitterUser->getAvatar()),
             'twitter_followers_count' => $twitterUser->user['followers_count'],
             'description1' => '？？？？？？？？？？？？？？？？？？？？？',
             'description2' => '？？？？？？？？？？？？？？？？？？？？？',
@@ -81,7 +80,7 @@ class LoginController extends Controller
               
             $user->talks()->createMany($items);
 
-            $arr_prof = [
+            $arrProf = [
                 'name' => $user->name,
                 'title' => $user->title,
                 'description1' => $user->description1,
@@ -93,7 +92,12 @@ class LoginController extends Controller
             $sns_url = $user->createSnsImage($twitterUser);
 
             // OGP画像生成
-            $ogp_url = $user->createOgpImage($arr_prof,$user,$twitterUser);
+            $ogp_url = $user->createOgpImage($arrProf,$user,$twitterUser);
+
+            // SNS・OGP画像更新
+            $user->sns_img_url = $sns_url;
+            $user->ogp_img_url = $ogp_url;
+            $user->save();
         }
         return [
             'access_token' => $user->createToken('twimonToken')->accessToken,

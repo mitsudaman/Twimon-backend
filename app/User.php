@@ -8,6 +8,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -180,8 +182,6 @@ class User extends Authenticatable
     // SNS画像作成
     public function createSnsImage(object $twitterUser)
     {
-        error_log("---------------------------------------");
-        error_log(print_r($this->id, true));
         $url = str_replace_last('_normal','',str_replace_last('_normal', '', $twitterUser->getAvatar()));
         $img = \Image::make($url);
 
@@ -189,7 +189,7 @@ class User extends Authenticatable
         // return $this->putImageToLocal('app/images/sns.png',$img);
 
         // S3保存用
-        $savePath = 'uploads/avatar/'.$self->id.'.png';
+        $savePath = 'uploads/avatar/'.$this->id.'.png';
         return $this-> putImageToS3($savePath,$img);
     }
 
