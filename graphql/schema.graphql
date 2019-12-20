@@ -31,6 +31,8 @@ type User {
     name: String!
     nickname: String
     title: String
+    type1: String
+    type2: String
     feature1: String
     feature1_content: String
     feature2: String
@@ -91,6 +93,8 @@ type Mutation {
 input UpdateUserProfInput {
     name: String!
     title: String
+    type1: String
+    type2: String
     feature1: String
     feature1_content: String
     feature2: String

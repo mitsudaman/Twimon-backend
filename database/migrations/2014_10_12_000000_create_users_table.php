@@ -22,7 +22,8 @@ class CreateUsersTable extends Migration
             $table->string('twitter_token')->nullable();
             $table->string('twitter_token_secret')->nullable();
             $table->string('title')->nullable();
-            $table->string('type')->nullable();
+            $table->string('type1')->nullable();
+            $table->string('type2')->nullable();
             $table->string('feature1')->nullable();
             $table->string('feature1_content')->nullable();
             $table->string('feature2')->nullable();
