@@ -8,7 +8,7 @@ use App\Like;
 use GraphQL\Type\Definition\ResolveInfo;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
-class GetLikeUsers
+class GetUsers
 {
     /**
      * Return a value for the field.
@@ -25,14 +25,7 @@ class GetLikeUsers
     // }
     public static function resolve($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
-        $query = Like::query();
-        $likes = $query->where('user_id',\Auth::user()->id)->get();
-        $like_user_ids = $likes ->map(function ($item, $key) {
-            return $item->like_user_id;
-        });
-
         $query = User::query();
-        $query->whereIn('id',$like_user_ids);
         $type1 = $args['type1'];
         $type2 = $args['type2'];
         if($type1||$type2){
@@ -40,14 +33,14 @@ class GetLikeUsers
                 $query->whereIn('type1',[$type1,$type2])
                     ->orWhereIn('type2',[$type1,$type2]);
             });
-        };
+        }
         $query->orderBy('id');
-        $like_users = $query->paginate($args['perPage'],['*'], 'page', $args['page']);
+        $users = $query->paginate($args['perPage'],['*'], 'page', $args['page']);
         return [
-            'likeUsers' => $like_users,
+            'users' => $users,
             'paginatorInfo' => [
-                'currentPage' => $like_users->currentPage(),
-                'lastPage' => $like_users->lastPage()
+                'currentPage' => $users->currentPage(),
+                'lastPage' => $users->lastPage()
             ]
         ];
     }

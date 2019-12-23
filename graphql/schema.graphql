@@ -10,12 +10,18 @@ scalar Upload @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Upload
 type Query {
     me: User @middleware(checks: ["auth:api"]) @auth
     user(id: ID @eq,name: String @eq): User @find(model: "App\\User")
-    users(orderBy: [OrderByClause!] @orderBy): [User!]! @paginate
+    "users(orderBy: [OrderByClause!] @orderBy): [User!]! @paginate"
+    getUsers(perPage: Int!, page: Int!,type1: String,type2: String): CustomUserPaginator
     getRedirectUrl: String!
-    getLikeUsers(perPage: Int!, page: Int!): CustomUserPaginator @middleware(checks: ["auth:api"])
+    getLikeUsers(perPage: Int!, page: Int!,type1: String,type2: String): CustomLikeUserPaginator @middleware(checks: ["auth:api"])
 }
 
 type CustomUserPaginator {
+    users: [User!]! 
+    paginatorInfo: PaginatorInfo!
+}
+
+type CustomLikeUserPaginator {
     likeUsers: [User!]!
     paginatorInfo: PaginatorInfo!
 }
