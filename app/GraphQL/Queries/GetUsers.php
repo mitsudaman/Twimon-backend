@@ -26,12 +26,11 @@ class GetUsers
     public static function resolve($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
         $query = User::query();
-        $type1 = $args['type1'];
-        $type2 = $args['type2'];
-        if($type1||$type2){
-            $query->where(function($query) use($type1, $type2){
-                $query->whereIn('type1',[$type1,$type2])
-                    ->orWhereIn('type2',[$type1,$type2]);
+        $searchTypes = $args['searchTypes'];
+        if(count($searchTypes) > 0){
+            $query->where(function($query) use($searchTypes){
+                $query->whereIn('type1',$searchTypes)
+                    ->orWhereIn('type2',$searchTypes);
             });
         }
         $query->orderBy('id');
