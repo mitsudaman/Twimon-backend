@@ -26,6 +26,10 @@ class GetUsers
     public static function resolve($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo)
     {
         $query = User::query();
+        $name = $args['name'];
+        if($name){
+            $query->where('name', 'LIKE',"%$name%");
+        }
         $searchTypes = $args['searchTypes'];
         if(count($searchTypes) > 0){
             $query->where(function($query) use($searchTypes){

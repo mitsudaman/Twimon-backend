@@ -33,6 +33,12 @@ class GetLikeUsers
 
         $query = User::query();
         $query->whereIn('id',$like_user_ids);
+
+        $name = $args['name'];
+        if($name){
+            $query->where('name', 'LIKE',"%$name%");
+        }
+
         $searchTypes = $args['searchTypes'];
         if(count($searchTypes) >0 ){
             $query->where(function($query) use($searchTypes){
