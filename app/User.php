@@ -193,7 +193,7 @@ class User extends Authenticatable
         // return $this->putImageToLocal('app/images/sns.png',$img);
 
         // S3保存用
-        $savePath = 'uploads/avatar/'.$this->id.'.png';
+        $savePath = env('APP_ENV').'/uploads/avatar/'.$this->id.'.png';
         return $this-> putImageToS3($savePath,$img);
     }
 
@@ -283,7 +283,7 @@ class User extends Authenticatable
         $image_name = '';
         if($user->ogp_img_url) $image_name = explode("uploads/ogp/",$user->ogp_img_url)[1];
         else $image_name = ((string) Str::uuid()).'.png';
-        $savePath = 'uploads/ogp/'.$image_name;
+        $savePath = env('APP_ENV').'/uploads/ogp/'.$image_name;
         return $this-> putImageToS3($savePath,$img);
     }
 
