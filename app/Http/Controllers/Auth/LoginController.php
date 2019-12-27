@@ -59,6 +59,7 @@ class LoginController extends Controller
             'serial_number' => DB::table('users')->max('serial_number')+1,
             'name' => $twitterUser->getName(),
             'nickname' => $twitterUser->getNickname(),
+            'type1' => 'ノーマル',
             'twitter_token' => $twitterUser->token,
             'twitter_token_secret' => $twitterUser->tokenSecret,
             'title' => '？？？？？？？？',
@@ -83,6 +84,8 @@ class LoginController extends Controller
             $arrProf = [
                 'name' => $user->name,
                 'title' => $user->title,
+                'type1' => 'ノーマル',
+                'type2' => '',
                 'description1' => $user->description1,
                 'description2' => $user->description2,
                 'description3' => $user->description3

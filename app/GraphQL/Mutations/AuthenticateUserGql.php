@@ -29,6 +29,7 @@ class AuthenticateUserGql
             'serial_number' => DB::table('users')->max('serial_number')+1,
             'name' => $twitterUser->getName(),
             'nickname' => $twitterUser->getNickname(),
+            'type1' => 'ノーマル',
             'sns_img_url' => str_replace_last('_normal', '', $twitterUser->getAvatar()),
             'twitter_followers_count' => $twitterUser->user['followers_count'],
             'description1' => '？？？？？？？？？？？？？？？？？？？？？',
@@ -46,6 +47,30 @@ class AuthenticateUserGql
             ];
               
             $user->talks()->createMany($items);
+
+
+            $arrProf = [
+                'name' => $user->name,
+                'title' => $user->title,
+                'type1' => 'ノーマル',
+                'type2' => '',
+                'description1' => $user->description1,
+                'description2' => $user->description2,
+                'description3' => $user->description3
+            ];
+
+            // SNS画像生成
+            $sns_url = $user->createSnsImage($twitterUser);
+
+            error_log($sns_url);
+            // OGP画像生成
+            $ogp_url = $user->createOgpImage($arrProf,$user,$twitterUser);
+       
+
+            // SNS・OGP画像更新
+            $user->sns_img_url = $sns_url;
+            $user->ogp_img_url = $ogp_url;
+            $user->save();
         }
 
         return [

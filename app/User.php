@@ -319,7 +319,7 @@ class User extends Authenticatable
         });
 
         // ローカル保存用
-        return $this->putImageToLocal('app/images/ogp2.png',$img);
+        // return $this->putImageToLocal('app/images/ogp2.png',$img);
 
         // S3保存用
         $image_name = '';
