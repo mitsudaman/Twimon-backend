@@ -193,7 +193,7 @@ class User extends Authenticatable
         // return $this->putImageToLocal('app/images/sns.png',$img);
 
         // S3保存用
-        $savePath = 'uploads/avatar/'.$this->id.'.png';
+        $savePath = env('APP_ENV').'/uploads/avatar/'.$this->id.'.png';
         return $this-> putImageToS3($savePath,$img);
     }
 
@@ -218,38 +218,79 @@ class User extends Authenticatable
         // プロフ
         $prof_x_point = 280;
         $prof_y_point = 58;
+        $interval = 36;
 
-        $fontSize=$this->calcProfFontSize('@'.$twitterUser->nickname);
-        $img->text('@'.$twitterUser->nickname, $prof_x_point, $prof_y_point, function($font) use ($fontSize){
-            $font->file(storage_path('app/fonts/PixelMplus10-Regular.ttf'));
-            $font->size($fontSize);
-            $font->color('#000');
-        });
+        // // ニックネーム
+        // $fontSize=$this->calcProfFontSize('@'.$twitterUser->nickname);
+        // $img->text('@'.$twitterUser->nickname, $prof_x_point, $prof_y_point, function($font) use ($fontSize){
+        //     $font->file(storage_path('app/fonts/PixelMplus10-Regular.ttf'));
+        //     $font->size($fontSize);
+        //     $font->color('#000');
+        // });
+
+        // なまえ
         $fontSize=$this->calcProfFontSize($args['name']);
-        $img->text($args['name'], $prof_x_point, $prof_y_point + 36, function($font) use ($fontSize){
+        $img->text($args['name'], $prof_x_point, $prof_y_point, function($font) use ($fontSize){
             $font->file(storage_path('app/fonts/PixelMplus10-Regular.ttf'));
             $font->size($fontSize);
             $font->color('#000');
         });
+
+        // タイトル
+        $prof_y_point += $interval;
         if($args['title']){
             $fontSize=$this->calcProfFontSize($args['title']);
-            $img->text($args['title'], $prof_x_point, $prof_y_point + 72, function($font) use ($fontSize){
+            $img->text($args['title'], $prof_x_point, $prof_y_point, function($font) use ($fontSize){
                 $font->file(storage_path('app/fonts/PixelMplus10-Regular.ttf'));
                 $font->size($fontSize);
                 $font->color('#000');
             });
         }
-        $img->text("戦闘力", $prof_x_point, $prof_y_point + 108, function($font){
+
+        // 戦闘力
+        $prof_y_point += $interval;
+        $img->text("戦闘力", $prof_x_point, $prof_y_point, function($font){
             $font->file(storage_path('app/fonts/PixelMplus10-Regular.ttf'));
             $font->size(20);
             $font->color('#000');
         });
-        $img->text($twitterUser->user['followers_count'], $prof_x_point+150, $prof_y_point + 108, function($font){
+        $img->text($twitterUser->user['followers_count'], $prof_x_point+150, $prof_y_point, function($font){
             $font->file(storage_path('app/fonts/PixelMplus10-Regular.ttf'));
             $font->size(20);
             $font->align('center');
             $font->color('#000');
         });
+
+        $type1 = $args['type1'];
+        $type_y1_point = $prof_y_point + 18;
+        $type_x1_point = $prof_x_point;
+        $type_width = 110;
+        if($type1){
+            $color = config('const.type_color')[$type1];
+            $img->rectangle($type_x1_point, $type_y1_point, $type_x1_point + $type_width, $type_y1_point + $interval, function ($draw) use ($color) {
+                $draw->background($color);
+            });
+            $img->text($type1, $type_x1_point + 55, $type_y1_point + 29, function($font){
+                $font->file(storage_path('app/fonts/PixelMplus10-Regular.ttf'));
+                $font->size(20);
+                $font->align('center');
+                $font->color('#fff');
+            });
+        }
+        $type2 = $args['type2'];
+        if($type2){
+            $type_x1_point +=150;
+            $color = config('const.type_color')[$type2];
+            $img->rectangle($type_x1_point, $type_y1_point, $type_x1_point + $type_width, $type_y1_point + $interval, function ($draw) use ($color) {
+                $draw->background($color);
+            });
+            $img->text($type2, $type_x1_point + 55, $type_y1_point + 29, function($font){
+                $font->file(storage_path('app/fonts/PixelMplus10-Regular.ttf'));
+                $font->size(20);
+                $font->align('center');
+                $font->color('#fff');
+            });
+        }
 
         // パラメータ確認用
         // ハンバーガーキッドｱあああああいうえおか はば39 Byte60 長さ20
@@ -260,6 +301,7 @@ class User extends Authenticatable
         //     $font->color('#000');
         // });
 
+        // せつめい
         $img->text($args['description1'], 40, 225, function($font){
             $font->file(storage_path('app/fonts/PixelMplus10-Bold.ttf'));
             $font->size(18);
@@ -277,13 +319,13 @@ class User extends Authenticatable
         });
 
         // ローカル保存用
-        // return $this->putImageToLocal('app/images/ogp2.png',$img);
+        return $this->putImageToLocal('app/images/ogp2.png',$img);
 
         // S3保存用
         $image_name = '';
         if($user->ogp_img_url) $image_name = explode("uploads/ogp/",$user->ogp_img_url)[1];
         else $image_name = ((string) Str::uuid()).'.png';
-        $savePath = 'uploads/ogp/'.$image_name;
+        $savePath = env('APP_ENV').'/uploads/ogp/'.$image_name;
         return $this-> putImageToS3($savePath,$img);
     }
 

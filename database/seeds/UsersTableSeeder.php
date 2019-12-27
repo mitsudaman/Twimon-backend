@@ -25,7 +25,7 @@ class UsersTableSeeder extends Seeder
             'feature1_content' => 'じめん',
             'feature2' => 'レベル',
             'feature2_content' => '99',
-            'sns_img_url' => 'https://twimon.s3-ap-northeast-1.amazonaws.com/uploads/seeds/gattyo/gattyo.jpg'
+            'sns_img_url' => 'https://twimon.s3-ap-northeast-1.amazonaws.com/seeds/gattyo/gattyo.jpg'
         ]);
         User::create([
             'serial_number' => DB::table('users')->max('serial_number')+1,
@@ -39,7 +39,7 @@ class UsersTableSeeder extends Seeder
             'feature1_content' => '無',
             'feature2' => 'レベル',
             'feature2_content' => '99',
-            'sns_img_url' => 'https://twimon.s3-ap-northeast-1.amazonaws.com/uploads/seeds/gattyo/masahikottyo.jpg'
+            'sns_img_url' => 'https://twimon.s3-ap-northeast-1.amazonaws.com/seeds/gattyo/masahikottyo.jpg'
         ]);
         User::create([
             'serial_number' => DB::table('users')->max('serial_number')+1,
@@ -53,7 +53,7 @@ class UsersTableSeeder extends Seeder
             'feature1_content' => 'ノーマル',
             'feature2' => 'レベル',
             'feature2_content' => '99',
-            'sns_img_url' => 'https://twimon.s3-ap-northeast-1.amazonaws.com/uploads/seeds/gattyo/edamamettyo.jpg'
+            'sns_img_url' => 'https://twimon.s3-ap-northeast-1.amazonaws.com/seeds/gattyo/edamamettyo.jpg'
         ]);
         User::create([
             'serial_number' => DB::table('users')->max('serial_number')+1,
@@ -67,7 +67,7 @@ class UsersTableSeeder extends Seeder
             'feature1_content' => '草',
             'feature2' => 'レベル',
             'feature2_content' => '99',
-            'sns_img_url' => 'https://twimon.s3-ap-northeast-1.amazonaws.com/uploads/seeds/gattyo/mutottyo.png'
+            'sns_img_url' => 'https://twimon.s3-ap-northeast-1.amazonaws.com/seeds/gattyo/mutottyo.png'
         ]);
         User::create([
             'serial_number' => DB::table('users')->max('serial_number')+1,
@@ -81,7 +81,7 @@ class UsersTableSeeder extends Seeder
             'feature1_content' => 'きんにく',
             'feature2' => 'レベル',
             'feature2_content' => '99',
-            'sns_img_url' => 'https://twimon.s3-ap-northeast-1.amazonaws.com/uploads/seeds/gattyo/osamuttyo.jpg'
+            'sns_img_url' => 'https://twimon.s3-ap-northeast-1.amazonaws.com/seeds/gattyo/osamuttyo.jpg'
         ]);
         User::create([
             'serial_number' => DB::table('users')->max('serial_number')+1,
@@ -95,7 +95,7 @@ class UsersTableSeeder extends Seeder
             'feature1_content' => 'めがね',
             'feature2' => 'レベル',
             'feature2_content' => '99',
-            'sns_img_url' => 'https://twimon.s3-ap-northeast-1.amazonaws.com/uploads/seeds/gattyo/yametattyo.jpg'
+            'sns_img_url' => 'https://twimon.s3-ap-northeast-1.amazonaws.com/seeds/gattyo/yametattyo.jpg'
         ]);
         User::create([
             'serial_number' => DB::table('users')->max('serial_number')+1,
@@ -109,7 +109,7 @@ class UsersTableSeeder extends Seeder
             'feature1_content' => 'きかい',
             'feature2' => 'レベル',
             'feature2_content' => '99',
-            'sns_img_url' => 'https://twimon.s3-ap-northeast-1.amazonaws.com/uploads/seeds/gattyo/jidohanttyo.jpg'
+            'sns_img_url' => 'https://twimon.s3-ap-northeast-1.amazonaws.com/seeds/gattyo/jidohanttyo.jpg'
         ]);
         User::create([
             'serial_number' => DB::table('users')->max('serial_number')+1,
@@ -126,7 +126,7 @@ class UsersTableSeeder extends Seeder
             'description1' => 'ふくおかに せいそくする うぇぶの ぷろぐらまー。',
             'description2' => 'ぶらっくな かいしゃから すぐいなくなる。2びょう',
             'description3' => 'かんに 1000もじの コードを かくことができる。',
-            'sns_img_url' => 'https://twimon.s3-ap-northeast-1.amazonaws.com/uploads/seeds/gattyo/mitsudamattyo.jpg'
+            'sns_img_url' => 'https://twimon.s3-ap-northeast-1.amazonaws.com/seeds/gattyo/mitsudamattyo.jpg'
         ]);
         User::create([
             'serial_number' => DB::table('users')->max('serial_number')+1,
@@ -140,7 +140,7 @@ class UsersTableSeeder extends Seeder
             'feature1_content' => 'まほう',
             'feature2' => 'レベル',
             'feature2_content' => '99',
-            'sns_img_url' => 'https://twimon.s3-ap-northeast-1.amazonaws.com/uploads/seeds/gattyo/blackparadin.jpg'
+            'sns_img_url' => 'https://twimon.s3-ap-northeast-1.amazonaws.com/seeds/gattyo/blackparadin.jpg'
         ]);
         // factory('App\User', 50)->create();
         // //特定のデータを追加
