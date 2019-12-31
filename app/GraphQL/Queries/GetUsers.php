@@ -37,7 +37,7 @@ class GetUsers
                     ->orWhereIn('type2',$searchTypes);
             });
         }
-        $query->orderBy('id');
+        $query->orderBy('id', 'desc');
         $users = $query->paginate($args['perPage'],['*'], 'page', $args['page']);
         return [
             'users' => $users,

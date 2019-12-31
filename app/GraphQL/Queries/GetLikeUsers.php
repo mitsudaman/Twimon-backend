@@ -46,7 +46,7 @@ class GetLikeUsers
                     ->orWhereIn('type2',$searchTypes);
             });
         };
-        $query->orderBy('id');
+        $query->orderBy('id', 'desc');
         $like_users = $query->paginate($args['perPage'],['*'], 'page', $args['page']);
         return [
             'likeUsers' => $like_users,
