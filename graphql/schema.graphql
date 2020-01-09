@@ -11,7 +11,7 @@ type Query {
     me: User @middleware(checks: ["auth:api"]) @auth
     user(id: ID @eq,name: String @eq): User @find(model: "App\\User")
     "users(orderBy: [OrderByClause!] @orderBy): [User!]! @paginate"
-    getUsers(perPage: Int!, page: Int!,name:String, searchTypes:[String]): CustomUserPaginator
+    getUsers(perPage: Int!, page: Int!,name:String, searchTypes:[String], withDescription: Boolean, talkEditedFlg: Boolean): CustomUserPaginator
     getRedirectUrl: String!
     getLikeUsers(perPage: Int!, page: Int!,name:String, searchTypes:[String]): CustomLikeUserPaginator @middleware(checks: ["auth:api"])
 }
@@ -60,6 +60,7 @@ type User {
     ogp_img_url: String
     hall_of_fame_flg: Boolean
     legend_flg: Boolean
+    talk_edited_flg: Boolean
     like_ct: Int
     twitter_followers_count: Int
     created_at: DateTime!

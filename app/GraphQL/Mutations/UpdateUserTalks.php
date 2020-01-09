@@ -59,6 +59,10 @@ class UpdateUserTalks
             }
         }
 
+        // トークの編集フラグをTrueに
+        $user->talk_edited_flg = true;
+        $user->save();
+
         return $user;
     }
 }
