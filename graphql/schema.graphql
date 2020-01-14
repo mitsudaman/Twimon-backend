@@ -13,7 +13,7 @@ type Query {
     "users(orderBy: [OrderByClause!] @orderBy): [User!]! @paginate"
     getUsers(perPage: Int!, page: Int!,name:String, searchTypes:[String], withDescription: Boolean, talkEditedFlg: Boolean): CustomUserPaginator
     getRedirectUrl: String!
-    getLikeUsers(perPage: Int!, page: Int!,name:String, searchTypes:[String]): CustomLikeUserPaginator @middleware(checks: ["auth:api"])
+    getLikeUsers(perPage: Int!, page: Int!,name:String, searchTypes:[String], withDescription: Boolean, talkEditedFlg: Boolean): CustomLikeUserPaginator @middleware(checks: ["auth:api"])
 }
 
 type CustomUserPaginator {

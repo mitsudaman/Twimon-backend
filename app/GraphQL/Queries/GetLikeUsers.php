@@ -39,6 +39,21 @@ class GetLikeUsers
             $query->where('name', 'LIKE',"%$name%");
         }
 
+        $withDescription = $args['withDescription'];
+        if($withDescription){
+            $query->where(function($query){
+                // デフォルトの設定以外
+                $query->where('description1', '<>','？？？？？？？？？？？？？？？？？？？？？')
+                    ->orWhere('description2', '<>','？？？？？？？？？？？？？？？？？？？？？')
+                    ->orWhere('description2', '<>','？？？？？？？？？？？？？？？？？？？？？');
+            });
+        }
+        $talkEditedFlg = $args['talkEditedFlg'];
+        if($talkEditedFlg){
+            // trueの時だけ絞る
+            $query->where('talk_edited_flg', '=',true);
+        }
+        
         $searchTypes = $args['searchTypes'];
         if(count($searchTypes) >0 ){
             $query->where(function($query) use($searchTypes){
